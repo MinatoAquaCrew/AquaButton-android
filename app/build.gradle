@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "moe.feng.aquabutton"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.coroutines_core
+    implementation deps.kotlin.coroutines_android
+
+    implementation deps.androidx.ktx.core
+    implementation deps.androidx.ktx.fragment
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.materialcomponents
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.constraintlayout
+
+    implementation deps.multitype
+    implementation deps.okhttp.core
+    implementation deps.gson
+
+    implementation deps.eventshelper.annotation
+    implementation deps.eventshelper.core
+    kapt deps.eventshelper.compiler
+    implementation deps.eventshelper.ktx
+
+    testImplementation deps.junit
+    androidTestImplementation deps.androidx.test.junit
+    androidTestImplementation deps.androidx.test.espresso
+}
