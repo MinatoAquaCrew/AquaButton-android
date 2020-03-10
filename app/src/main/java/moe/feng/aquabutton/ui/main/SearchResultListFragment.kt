@@ -3,13 +3,13 @@ package moe.feng.aquabutton.ui.main
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
-import kotlinx.android.synthetic.main.fragment_main_category_list.*
+import kotlinx.android.synthetic.main.fragment_main_search_result_list.*
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.model.VoiceItem
 import moe.feng.aquabutton.ui.common.BaseFragment
 import moe.feng.aquabutton.ui.main.list.VoiceItemListAdapter
 
-class SearchResultListFragment : BaseFragment(R.layout.fragment_main_category_list) {
+class SearchResultListFragment : BaseFragment(R.layout.fragment_main_search_result_list) {
 
     companion object {
 
@@ -47,6 +47,10 @@ class SearchResultListFragment : BaseFragment(R.layout.fragment_main_category_li
         contentTitle.text = getString(R.string.search_result_title, keyword)
 
         contentList.adapter = adapter
+
+        clearButton.setOnClickListener {
+            (activity as? MainActivity)?.clearSearchResult()
+        }
 
         adapter.items = data
     }

@@ -234,4 +234,15 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         }
     }
 
+    fun clearSearchResult() {
+        with (state) {
+            voiceData.selectItem(voiceData.firstOrNull())
+            searchKeyword = null
+            searchResult = null
+        }
+        topMenuAdapter.notifyDataSetChanged()
+        setupContentFragment()
+        updateTopMenuStates(TOP_MENU_STATE_COLLAPSED)
+    }
+
 }
