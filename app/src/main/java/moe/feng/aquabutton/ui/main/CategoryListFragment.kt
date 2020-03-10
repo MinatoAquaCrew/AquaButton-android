@@ -2,7 +2,9 @@ package moe.feng.aquabutton.ui.main
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
 import androidx.core.os.bundleOf
+import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.fragment_main_category_list.*
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.model.VoiceCategory
@@ -49,6 +51,11 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
                 .of<MainUiEventCallback>()
                 .toggleCategoryMenu()
         }
+    }
+
+    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        contentList.updatePadding(bottom = insets.systemWindowInsetBottom)
+        return insets
     }
 
 }

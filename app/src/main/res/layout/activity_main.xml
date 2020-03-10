@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,90 +10,117 @@
     android:background="?android:colorPrimary"
     tools:context=".ui.main.MainActivity">
 
-    <View
-        android:id="@+id/statusBackground"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="?android:colorPrimaryDark"
-        tools:layout_height="24dp" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-        app:contentInsetStart="0dp"
-        app:contentInsetEnd="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetRight="0dp">
-
-        <include layout="@layout/toolbar_main"/>
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <FrameLayout
-        android:id="@+id/topMenuContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
-        tools:layout_height="wrap_content">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/topMenuList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:listitem="@layout/voice_category_menu_item"
-            tools:itemCount="8"
-            tools:visibility="gone"/>
-
-        <LinearLayout
-            android:id="@+id/searchContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:visibility="visible">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.AquaButton.TextInputLayout.MainSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/ThemeOverlay.AquaButton.TextInputEditText.MainSearch"
-                    android:hint="@string/search_hint"
-                    android:singleLine="true"
-                    android:imeOptions="actionSearch"
-                    tools:text="holoLive"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/contentContainer"
+    <LinearLayout
+        android:id="@+id/rootLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="-16dp"
-        app:cardCornerRadius="16dp">
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="?android:colorPrimaryDark"
+            tools:layout_height="24dp" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp">
+
+            <include layout="@layout/toolbar_main"/>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
-            android:id="@+id/contentFrame"
+            android:id="@+id/topMenuContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+            tools:layout_height="wrap_content">
 
-    </com.google.android.material.card.MaterialCardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/topMenuList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/voice_category_menu_item"
+                tools:itemCount="8"
+                tools:visibility="gone"/>
 
-</LinearLayout>
+            <LinearLayout
+                android:id="@+id/searchContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.AquaButton.TextInputLayout.MainSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/searchEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/ThemeOverlay.AquaButton.TextInputEditText.MainSearch"
+                        android:hint="@string/search_hint"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch"
+                        tools:text="holoLive"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-16dp"
+            app:cardCornerRadius="16dp">
+
+            <FrameLayout
+                android:id="@+id/contentFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/shuffleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin_bottom"
+        android:layout_marginEnd="@dimen/fab_margin_end"
+        android:src="@drawable/ic_shuffle_24"
+        android:tint="?android:textColorPrimary"
+        android:contentDescription="@string/action_shuffle"
+        app:backgroundTint="?android:colorAccent"/>
+
+    <View
+        android:id="@+id/bottomNavBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bottom_nav_background"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

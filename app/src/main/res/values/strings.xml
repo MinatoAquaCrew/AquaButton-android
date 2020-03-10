@@ -9,5 +9,9 @@
     <string name="tips_input_search_keyword">Please input keyword to search.</string>
     <string name="tips_op_requires_load">This operation requires finishing loading data.</string>
     <string name="tips_failed_to_play">Failed to play voice.</string>
+    <string name="choose_category_title">Choose category</string>
+    <string name="action_shuffle">I\'m feeling lucky</string>
+    <string name="tips_shuffle_result">Lucky voice: %s - %s</string>
+    <string name="action_stop">Stop</string>
 
 </resources>

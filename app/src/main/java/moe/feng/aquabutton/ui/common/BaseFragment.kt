@@ -2,6 +2,11 @@ package moe.feng.aquabutton.ui.common
 
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +30,20 @@ abstract class BaseFragment : Fragment {
 
     open fun getActivityTitle(context: Context): String? {
         return null
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        view?.setOnApplyWindowInsetsListener { _, insets -> onApplyWindowInsets(insets) }
+        return view
+    }
+
+    open fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        return insets
     }
 
     fun launchWhenCreated(block: suspend CoroutineScope.() -> Unit): Job =

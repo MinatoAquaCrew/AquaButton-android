@@ -25,6 +25,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:visibility="gone"
         tools:text="Title"/>
+
+    <ImageView
+        android:id="@+id/homeLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitStart"
+        android:src="@drawable/main_logo"
+        android:tint="?android:textColorPrimary"/>
 
 </LinearLayout>

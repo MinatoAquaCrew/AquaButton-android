@@ -2,8 +2,12 @@ package moe.feng.aquabutton.ui.main
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
 import androidx.core.os.bundleOf
+import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.fragment_main_search_result_list.*
+import kotlinx.android.synthetic.main.fragment_main_search_result_list.contentList
+import kotlinx.android.synthetic.main.fragment_main_search_result_list.contentTitle
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.model.VoiceItem
 import moe.feng.aquabutton.ui.common.BaseFragment
@@ -53,6 +57,11 @@ class SearchResultListFragment : BaseFragment(R.layout.fragment_main_search_resu
         }
 
         adapter.items = data
+    }
+
+    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        contentList.updatePadding(bottom = insets.systemWindowInsetBottom)
+        return insets
     }
 
 }

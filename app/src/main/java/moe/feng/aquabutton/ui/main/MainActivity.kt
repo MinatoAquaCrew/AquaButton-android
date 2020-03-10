@@ -1,6 +1,8 @@
 package moe.feng.aquabutton.ui.main
 
+import android.content.res.Configuration
 import android.graphics.drawable.Animatable
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.Menu
@@ -8,6 +10,9 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
+import androidx.appcompat.widget.TooltipCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
@@ -67,7 +72,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTransparentUi()
+        setTransparentUi(lightNavBar = true)
 
         supportActionBar?.apply {
             setDisplayShowTitleEnabled(false)
@@ -88,7 +93,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             }
             return@setOnEditorActionListener false
         }
-        homeButton.setOnClickListener { toggleCategoryMenu() }
+        homeButton.onClick { toggleCategoryMenu() }
+        shuffleButton.onClick { playShuffleVoice() }
+        TooltipCompat.setTooltipText(shuffleButton, getString(R.string.action_shuffle))
 
         state = savedInstanceState?.getParcelable(KEY_STATES) ?: State()
 
@@ -126,8 +133,35 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         EventsHelper.getInstance(this).unregisterListener(this)
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        try {
+            setTransparentUi()
+        } catch (ignored: Exception) {
+        }
+    }
+
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         statusBackground.updateLayoutParams { height = insets.systemWindowInsetTop }
+        bottomNavBackground.updateLayoutParams { height = insets.systemWindowInsetBottom }
+        shuffleButton.updateLayoutParams<CoordinatorLayout.LayoutParams> {
+            bottomMargin = resources.getDimensionPixelSize(R.dimen.fab_margin_bottom) +
+                    insets.systemWindowInsetBottom
+        }
+        if (insets.systemWindowInsetBottom > 0) {
+            if (!hideNavigation) setTransparentUi(hideNavigation = true)
+        } else {
+            if (hideNavigation) setTransparentUi(hideNavigation = false)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (insets.systemGestureInsets.bottom != insets.tappableElementInsets.bottom) {
+                bottomNavBackground.alpha = 0F
+            } else {
+                bottomNavBackground.alpha = 1F
+            }
+        } else {
+            bottomNavBackground.alpha = 1F
+        }
         return super.onApplyWindowInsets(insets)
     }
 
@@ -139,6 +173,11 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.action_search).isVisible = state.topMenuState != TOP_MENU_STATE_SEARCH
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -175,8 +214,18 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
     private fun showSnackbar(text: String? = null,
                              textRes: Int = 0,
-                             duration: Int = Snackbar.LENGTH_SHORT) {
-        Snackbar.make(rootView, text ?: getString(textRes), duration).show()
+                             duration: Int = Snackbar.LENGTH_SHORT,
+                             actionText: String? = null,
+                             actionTextRes: Int = 0,
+                             onAction: (() -> Unit)? = null) {
+        val bar = Snackbar.make(rootView, text ?: getString(textRes), duration)
+        if (onAction != null) {
+            val actionTextValue = actionText
+                ?: actionTextRes.takeIf { it != 0 }?.let(::getString)
+                ?: throw IllegalArgumentException("actionText or actionTextRes cannot be empty")
+            bar.setAction(actionTextValue) { onAction() }
+        }
+        bar.show()
     }
 
     private fun updateTopMenuStates(newState: Int? = null, animate: Boolean = false) {
@@ -184,10 +233,10 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         if (newState != null) {
             state.topMenuState = newState
         }
-        println("topMenuState = ${state.topMenuState}")
         when (state.topMenuState) {
             TOP_MENU_STATE_COLLAPSED -> {
-                homeTitle.setText(R.string.app_name)
+                homeLogo.isVisible = true
+                homeTitle.isGone = true
                 homeButton.setImageResource(
                     if (animate && lastState != TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_close_to_haze else R.drawable.ic_dehaze_24
@@ -196,7 +245,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_EXPANDED -> {
-                homeTitle.setText(R.string.app_name)
+                homeLogo.isGone = true
+                homeTitle.isVisible = true
+                homeTitle.setText(R.string.choose_category_title)
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
@@ -207,6 +258,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_SEARCH -> {
+                homeLogo.isGone = true
+                homeTitle.isVisible = true
                 homeTitle.setText(R.string.action_search)
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
@@ -219,11 +272,12 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             }
         }
         if (animate) {
-            TransitionManager.beginDelayedTransition(rootView, AutoTransition().apply {
+            TransitionManager.beginDelayedTransition(rootLinearLayout, AutoTransition().apply {
                 duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
             })
             (homeButton.drawable as? Animatable)?.start()
         }
+        invalidateOptionsMenu()
     }
 
     private fun onVoiceCategoryItemClick(item: VoiceCategory) {
@@ -291,6 +345,25 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 setupContentFragment()
             }
         }
+    }
+
+    private fun playShuffleVoice() = launchWhenResumed {
+        if (state.voiceData.isEmpty()) {
+            showSnackbar(textRes = R.string.tips_op_requires_load)
+            return@launchWhenResumed
+        }
+        val luckyCategory = state.voiceData.random()
+        val luckyVoice = luckyCategory.voiceList.random()
+        showSnackbar(
+            text = getString(R.string.tips_shuffle_result,
+                luckyCategory.description(), luckyVoice.description()),
+            actionTextRes = R.string.action_stop,
+            onAction = {
+                VoicePlayer.stop()
+            },
+            duration = Snackbar.LENGTH_LONG
+        )
+        VoicePlayer.play(AquaAssetsApi.getVoice(luckyVoice))
     }
 
     fun clearSearchResult() {
