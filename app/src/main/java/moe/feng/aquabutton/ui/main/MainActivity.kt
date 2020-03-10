@@ -26,6 +26,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.whenCreated
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import androidx.view.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
@@ -335,6 +336,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         }
         if (animate) {
             TransitionManager.beginDelayedTransition(rootLinearLayout, AutoTransition().apply {
+                ordering = TransitionSet.ORDERING_TOGETHER
                 duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
             })
             (homeButton.drawable as? Animatable)?.start()
