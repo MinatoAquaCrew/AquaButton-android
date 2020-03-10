@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="oss_licenses"
+        android:title="@string/licenses_open_source_licenses"
+        android:summary="@string/licenses_open_source_licenses_summary"/>
+
+    <Preference
+        android:key="holo_terms"
+        android:title="@string/licenses_voice_source"
+        android:summary="@string/licenses_voice_source_summary"/>
+
+</androidx.preference.PreferenceScreen>

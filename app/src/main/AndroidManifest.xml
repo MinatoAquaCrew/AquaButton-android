@@ -27,6 +27,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.settings.PreferenceActivity"
+            android:label="@string/action_settings"
+            android:exported="true"/>
+
         <provider
             android:authorities="moe.feng.aquabutton.fileprovider"
             android:name="androidx.core.content.FileProvider"

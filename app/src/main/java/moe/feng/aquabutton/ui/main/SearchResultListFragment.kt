@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_main_search_result_list.contentTi
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.model.VoiceItem
 import moe.feng.aquabutton.ui.common.BaseFragment
+import moe.feng.aquabutton.ui.main.list.ContributeVoicesItemBinder
 import moe.feng.aquabutton.ui.main.list.VoiceItemListAdapter
 
 class SearchResultListFragment : BaseFragment(R.layout.fragment_main_search_result_list) {
@@ -56,7 +57,8 @@ class SearchResultListFragment : BaseFragment(R.layout.fragment_main_search_resu
             (activity as? MainActivity)?.clearSearchResult()
         }
 
-        adapter.items = data
+        adapter.items = data.takeIf { it.isNotEmpty() }
+            ?: listOf(ContributeVoicesItemBinder.Item())
     }
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {

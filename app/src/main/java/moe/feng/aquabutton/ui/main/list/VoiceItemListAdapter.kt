@@ -6,6 +6,7 @@ class VoiceItemListAdapter : MultiTypeAdapter() {
 
     init {
         register(VoiceItemBinder())
+        register(ContributeVoicesItemBinder())
     }
 
 }

@@ -23,5 +23,17 @@
     Cannot launch create documents dialog which should be included in Android OS. Please contact
     your manufacturer for help.
     ]]></string>
+    <string name="no_result_text"><![CDATA[
+    No result. You can contribute extra voices of Minato Aqua and improve voices description
+    translation on GitHub. Tap to open voice source repository.
+    ]]></string>
+    <string name="action_licenses">Licenses</string>
+    <string name="licenses_open_source_licenses">Open source software licenses</string>
+    <string name="licenses_open_source_licenses_summary"><![CDATA[
+    Thanks for the contributions of these projects.
+    ]]></string>
+    <string name="licenses_voice_source">Voices source of Minato Aqua</string>
+    <string name="licenses_voice_source_summary">© Cover Corp. / Hololive production</string>
+    <string name="licenses_holo_terms_url" translatable="false">https://www.hololive.tv/terms</string>
 
 </resources>

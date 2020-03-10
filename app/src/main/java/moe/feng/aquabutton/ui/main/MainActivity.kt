@@ -28,6 +28,7 @@ import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import androidx.view.hideKeyboard
+import androidx.view.updateDisplayedId
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,6 +44,9 @@ import moe.feng.aquabutton.model.selectItem
 import moe.feng.aquabutton.ui.common.BaseActivity
 import moe.feng.aquabutton.ui.main.event.MainUiEventCallback
 import moe.feng.aquabutton.ui.main.list.TopMenuListAdapter
+import moe.feng.aquabutton.ui.settings.LicensesSettingsFragment
+import moe.feng.aquabutton.ui.settings.MainSettingsFragment
+import moe.feng.aquabutton.ui.settings.PreferenceActivity
 import moe.feng.aquabutton.ui.sound.MaterialSound
 import moe.feng.aquabutton.util.FileUtils
 import moe.feng.aquabutton.util.VoicePlayer
@@ -210,6 +214,14 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 }
                 return true
             }
+            R.id.action_settings -> {
+                PreferenceActivity.start<MainSettingsFragment>(this)
+                return true
+            }
+            R.id.action_licenses -> {
+                PreferenceActivity.start<LicensesSettingsFragment>(this)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -313,7 +325,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         }
         when (state.topMenuState) {
             TOP_MENU_STATE_COLLAPSED -> {
-                titleSwitcher.displayedChild = 0
+                titleSwitcher.updateDisplayedId(0)
                 homeButton.setImageResource(
                     if (animate && lastState != TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_close_to_haze else R.drawable.ic_dehaze_24
@@ -322,7 +334,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_EXPANDED -> {
-                titleSwitcher.displayedChild = 1
+                titleSwitcher.updateDisplayedId(1)
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
@@ -333,7 +345,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_SEARCH -> {
-                titleSwitcher.displayedChild = 2
+                titleSwitcher.updateDisplayedId(2)
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
