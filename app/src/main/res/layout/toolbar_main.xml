@@ -16,6 +16,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?android:selectableItemBackgroundBorderless"
+        android:soundEffectsEnabled="false"
         app:srcCompat="@drawable/ic_anim_close_to_haze"
         android:tint="?android:textColorPrimary"/>
 

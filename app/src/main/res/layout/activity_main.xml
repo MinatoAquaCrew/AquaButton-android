@@ -104,17 +104,28 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/shuffleButton"
+    <moe.feng.aquabutton.ui.common.FloatingActionButtonContainer
+        android:id="@+id/fabContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/fab_margin_bottom"
-        android:layout_marginEnd="@dimen/fab_margin_end"
-        android:src="@drawable/ic_shuffle_24"
-        android:tint="?android:textColorPrimary"
-        android:contentDescription="@string/action_shuffle"
-        app:backgroundTint="?android:colorAccent"/>
+        android:layout_gravity="bottom|end">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/shuffleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginTop="@dimen/fab_margin_end"
+            android:layout_marginBottom="@dimen/fab_margin_bottom"
+            android:layout_marginEnd="@dimen/fab_margin_end"
+            android:src="@drawable/ic_shuffle_24"
+            android:tint="?android:textColorPrimary"
+            android:contentDescription="@string/action_shuffle"
+            app:backgroundTint="?android:colorAccent"
+            app:layout_anchor="@+id/bottomNavBackground"
+            app:layout_anchorGravity="end"/>
+
+    </moe.feng.aquabutton.ui.common.FloatingActionButtonContainer>
 
     <View
         android:id="@+id/bottomNavBackground"

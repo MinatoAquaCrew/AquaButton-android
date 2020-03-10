@@ -43,6 +43,7 @@ import moe.feng.aquabutton.model.selectItem
 import moe.feng.aquabutton.ui.common.BaseActivity
 import moe.feng.aquabutton.ui.main.event.MainUiEventCallback
 import moe.feng.aquabutton.ui.main.list.TopMenuListAdapter
+import moe.feng.aquabutton.ui.sound.MaterialSound
 import moe.feng.aquabutton.util.FileUtils
 import moe.feng.aquabutton.util.VoicePlayer
 import moe.feng.common.eventshelper.EventsHelper
@@ -110,12 +111,16 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
         if (state.voiceData.isEmpty()) {
             launch {
-                state.voiceData = AquaAssetsApi.getVoices()
-                state.voiceData.firstOrNull()?.selected = true
+                try {
+                    state.voiceData = AquaAssetsApi.getVoices()
+                    state.voiceData.firstOrNull()?.selected = true
 
-                topMenuAdapter.items = state.voiceData
-                topMenuAdapter.notifyDataSetChanged()
-                setupContentFragment()
+                    topMenuAdapter.items = state.voiceData
+                    topMenuAdapter.notifyDataSetChanged()
+                    setupContentFragment()
+                } catch (e: Exception) {
+                    // TODO Show error
+                }
             }
         } else {
             topMenuAdapter.items = state.voiceData
@@ -153,9 +158,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
         statusBackground.updateLayoutParams { height = insets.systemWindowInsetTop }
         bottomNavBackground.updateLayoutParams { height = insets.systemWindowInsetBottom }
-        shuffleButton.updateLayoutParams<CoordinatorLayout.LayoutParams> {
-            bottomMargin = resources.getDimensionPixelSize(R.dimen.fab_margin_bottom) +
-                    insets.systemWindowInsetBottom
+        fabContainer.updateLayoutParams<CoordinatorLayout.LayoutParams> {
+            bottomMargin = insets.systemWindowInsetBottom
         }
         if (insets.systemWindowInsetBottom > 0) {
             if (!hideNavigation) setTransparentUi(hideNavigation = true)
@@ -197,6 +201,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                     return true
                 }
                 if (state.topMenuState != TOP_MENU_STATE_SEARCH) {
+                    if (state.topMenuState == TOP_MENU_STATE_COLLAPSED) {
+                        MaterialSound.navigationForwardSelection()
+                    }
                     updateTopMenuStates(newState = TOP_MENU_STATE_SEARCH, animate = true)
                 }
                 return true
@@ -206,16 +213,21 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     override fun showErrorTextOnSnackbar(text: String) {
+        MaterialSound.alertError3()
         showSnackbar(text)
     }
 
     override fun toggleCategoryMenu() {
         if (state.topMenuState != TOP_MENU_STATE_COLLAPSED) {
+            MaterialSound.navigationBackwardSelection()
             updateTopMenuStates(newState = TOP_MENU_STATE_COLLAPSED, animate = true)
         } else {
             if (state.voiceData.isEmpty()) {
                 showSnackbar(textRes = R.string.tips_op_requires_load)
                 return
+            }
+            if (state.topMenuState == TOP_MENU_STATE_COLLAPSED) {
+                MaterialSound.navigationForwardSelection()
             }
             updateTopMenuStates(newState = TOP_MENU_STATE_EXPANDED, animate = true)
         }
@@ -345,6 +357,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     private fun onVoiceCategoryItemClick(item: VoiceCategory) {
+        MaterialSound.navigationBackwardSelection()
         state.voiceData.selectItem(item)
         state.searchKeyword = null
         searchJob?.cancel()
@@ -437,6 +450,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             searchKeyword = null
             searchResult = null
         }
+        MaterialSound.navigationBackwardSelection()
         topMenuAdapter.notifyDataSetChanged()
         setupContentFragment()
         updateTopMenuStates(TOP_MENU_STATE_COLLAPSED)
