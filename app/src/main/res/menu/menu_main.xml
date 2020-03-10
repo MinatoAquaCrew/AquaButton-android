@@ -6,6 +6,11 @@
         android:id="@+id/action_search"
         android:title="@string/action_search"
         android:icon="@drawable/ic_search_24_primary_text"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
 
 </menu>

@@ -15,6 +15,7 @@ import androidx.lifecycle.whenCreated
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import androidx.view.hideKeyboard
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
@@ -26,9 +27,12 @@ import moe.feng.aquabutton.model.VoiceCategory
 import moe.feng.aquabutton.model.VoiceItem
 import moe.feng.aquabutton.model.selectItem
 import moe.feng.aquabutton.ui.common.BaseActivity
+import moe.feng.aquabutton.ui.main.event.MainUiEventCallback
 import moe.feng.aquabutton.ui.main.list.TopMenuListAdapter
+import moe.feng.aquabutton.util.VoicePlayer
+import moe.feng.common.eventshelper.EventsHelper
 
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
     companion object {
 
@@ -71,38 +75,12 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         topMenuList.adapter = topMenuAdapter
         searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchEdit.hideKeyboard()
-                searchJob?.cancel()
-                searchJob = launch {
-                    val keyword = searchEdit.text?.toString()
-                    if (keyword.isNullOrEmpty()) {
-                        // TODO Show error
-                        return@launch
-                    }
-                    if (state.searchKeyword == keyword &&
-                        state.searchResult?.isNotEmpty() == true) {
-                        return@launch
-                    }
-                    with (state) {
-                        searchKeyword = keyword
-                        searchResult = null
-                        voiceData.selectItem(null)
-                    }
-                    whenCreated {
-                        setupContentFragment()
-                    }
-                    val result = withContext(Dispatchers.Default) {
-                        state.voiceData.asSequence()
-                            .flatMap { it.voiceList.asSequence() }
-                            .filter {
-                                it.description()?.contains(keyword, ignoreCase = true) == true
-                            }
-                            .toList()
-                    }
-                    state.searchResult = result
-                    whenCreated {
-                        setupContentFragment()
-                    }
+                val keyword = searchEdit.text?.toString()
+                if (keyword.isNullOrEmpty()) {
+                    showSnackbar(textRes = R.string.tips_input_search_keyword)
+                } else {
+                    searchEdit.hideKeyboard()
+                    doSearch(keyword)
                 }
                 return@setOnEditorActionListener true
             }
@@ -127,6 +105,22 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
         updateTopMenuStates()
         setupContentFragment()
+        EventsHelper.getInstance(this).registerListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        VoicePlayer.init()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        VoicePlayer.release()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventsHelper.getInstance(this).unregisterListener(this)
     }
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
@@ -150,16 +144,34 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 if (state.topMenuState != TOP_MENU_STATE_COLLAPSED) {
                     updateTopMenuStates(newState = TOP_MENU_STATE_COLLAPSED, animate = true)
                 } else {
+                    if (state.voiceData.isEmpty()) {
+                        showSnackbar(textRes = R.string.tips_op_requires_load)
+                        return true
+                    }
                     updateTopMenuStates(newState = TOP_MENU_STATE_EXPANDED, animate = true)
                 }
                 return true
             }
             R.id.action_search -> {
+                if (state.voiceData.isEmpty()) {
+                    showSnackbar(textRes = R.string.tips_op_requires_load)
+                    return true
+                }
                 updateTopMenuStates(newState = TOP_MENU_STATE_SEARCH, animate = true)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun showErrorTextOnSnackbar(text: String) {
+        showSnackbar(text)
+    }
+
+    private fun showSnackbar(text: String? = null,
+                             textRes: Int = 0,
+                             duration: Int = Snackbar.LENGTH_SHORT) {
+        Snackbar.make(rootView, text ?: getString(textRes), duration).show()
     }
 
     private fun updateTopMenuStates(newState: Int? = null, animate: Boolean = false) {
@@ -230,6 +242,36 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
                 if (fragment !is LoadingFragment) {
                     replace(R.id.contentFrame, LoadingFragment())
                 }
+            }
+        }
+    }
+
+    private fun doSearch(keyword: String) {
+        searchJob?.cancel()
+        searchJob = launch {
+            if (state.searchKeyword == keyword &&
+                state.searchResult?.isNotEmpty() == true) {
+                return@launch
+            }
+            with (state) {
+                searchKeyword = keyword
+                searchResult = null
+                voiceData.selectItem(null)
+            }
+            whenCreated {
+                setupContentFragment()
+            }
+            val result = withContext(Dispatchers.Default) {
+                state.voiceData.asSequence()
+                    .flatMap { it.voiceList.asSequence() }
+                    .filter {
+                        it.description()?.contains(keyword, ignoreCase = true) == true
+                    }
+                    .toList()
+            }
+            state.searchResult = result
+            whenCreated {
+                setupContentFragment()
             }
         }
     }

@@ -1,0 +1,52 @@
+package moe.feng.aquabutton.util
+
+import android.media.AudioAttributes
+import android.media.MediaPlayer
+import android.net.Uri
+import android.os.Build
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import moe.feng.aquabutton.AquaApp
+import java.io.File
+
+object VoicePlayer : AquaApp.Component {
+
+    private var mediaPlayer: MediaPlayer? = null
+
+    fun init() {
+        mediaPlayer = MediaPlayer().also {
+            it.setAudioAttributes(AudioAttributes.Builder().apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setAllowedCapturePolicy(AudioAttributes.ALLOW_CAPTURE_BY_ALL)
+                }
+                setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                setUsage(AudioAttributes.USAGE_MEDIA)
+            }.build())
+        }
+    }
+
+    fun release() {
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
+
+    suspend fun play(file: File) {
+        play(AquaApp.getUriForFile(file))
+    }
+
+    suspend fun play(uri: Uri) {
+        withContext(Dispatchers.IO) {
+            mediaPlayer?.run {
+                reset()
+                setDataSource(context, uri)
+                prepare()
+                start()
+            } ?: throw IllegalStateException("Did you forget to init VoicePlayer")
+        }
+    }
+
+    fun stop() {
+        mediaPlayer?.stop()
+    }
+
+}

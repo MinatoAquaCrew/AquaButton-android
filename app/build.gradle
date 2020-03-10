@@ -59,6 +59,8 @@ dependencies {
     implementation deps.okhttp.core
     implementation deps.gson
 
+    implementation deps.fastscroll
+
     implementation deps.eventshelper.annotation
     implementation deps.eventshelper.core
     kapt deps.eventshelper.compiler

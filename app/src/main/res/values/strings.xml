@@ -3,7 +3,11 @@
     <string name="app_name">AquaButton</string>
 
     <string name="action_search">Search</string>
+    <string name="action_settings">Settings</string>
     <string name="search_hint">Keyword</string>
     <string name="search_result_title">Result for keyword \"%s\"</string>
+    <string name="tips_input_search_keyword">Please input keyword to search.</string>
+    <string name="tips_op_requires_load">This operation requires finishing loading data.</string>
+    <string name="tips_failed_to_play">Failed to play voice.</string>
 
 </resources>

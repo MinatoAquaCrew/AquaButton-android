@@ -67,6 +67,7 @@ ext {
         gson        : 'com.google.code.gson:gson:2.8.6',
         mmkv        : 'com.tencent:mmkv-static:1.0.24',
         namedregexp : 'com.github.tony19:named-regexp:0.2.5',
-        junit       : 'junit:junit:4.13'
+        junit       : 'junit:junit:4.13',
+        fastscroll  : 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
     ]
 }
