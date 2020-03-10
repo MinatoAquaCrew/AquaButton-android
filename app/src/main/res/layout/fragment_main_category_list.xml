@@ -18,6 +18,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?android:selectableItemBackground"
+        android:soundEffectsEnabled="false"
         tools:text="Content Title" />
 
     <View

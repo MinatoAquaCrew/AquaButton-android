@@ -57,14 +57,24 @@ object MaterialSound : AquaApp.Component {
         play(R.raw.alert_error_03)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    fun heroSimpleCelebration1() {
+        play(R.raw.hero_simple_celebration_01)
+    }
+
     fun onTouchListenerForNavigationHoverTap(): View.OnTouchListener {
-        return View.OnTouchListener { _, event ->
+        return NavigationHoverTapTouchListener()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private class NavigationHoverTapTouchListener : View.OnTouchListener {
+
+        override fun onTouch(v: View, event: MotionEvent): Boolean {
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 navigationHoverTap()
             }
-            false
+            return false
         }
+
     }
 
 }

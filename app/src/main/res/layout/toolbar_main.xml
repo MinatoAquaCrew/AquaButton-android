@@ -20,24 +20,38 @@
         app:srcCompat="@drawable/ic_anim_close_to_haze"
         android:tint="?android:textColorPrimary"/>
 
-    <TextView
-        android:id="@+id/homeTitle"
+    <ViewFlipper
+        android:id="@+id/titleSwitcher"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:visibility="gone"
-        tools:text="Title"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/homeLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitStart"
-        android:src="@drawable/main_logo"
-        android:tint="?android:textColorPrimary"/>
+        <ImageView
+            android:id="@+id/homeLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitStart"
+            android:src="@drawable/main_logo"
+            android:tint="?android:textColorPrimary"/>
+
+        <TextView
+            android:id="@+id/chooseCategoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="@string/choose_category_title"/>
+
+        <TextView
+            android:id="@+id/searchTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:text="@string/action_search"/>
+
+    </ViewFlipper>
 
 </LinearLayout>

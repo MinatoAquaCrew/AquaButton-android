@@ -106,6 +106,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         homeButton.onClick { toggleCategoryMenu() }
         shuffleButton.onClick { playShuffleVoice() }
         TooltipCompat.setTooltipText(shuffleButton, getString(R.string.action_shuffle))
+        titleSwitcher.setInAnimation(this, R.anim.slide_fade_in)
+        titleSwitcher.setOutAnimation(this, R.anim.slide_fade_out)
 
         state = savedInstanceState?.getParcelable(KEY_STATES) ?: State()
 
@@ -267,6 +269,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 whenCreated { saveProgressBar.dismiss() }
                 FileUtils.copyFileToUri(this@MainActivity, voiceFile, uri)
                 val path = uri.toString()
+                MaterialSound.heroSimpleCelebration1()
                 showSnackbar(
                     text = getString(R.string.tips_voice_saved, path),
                     duration = Snackbar.LENGTH_LONG,
@@ -310,8 +313,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         }
         when (state.topMenuState) {
             TOP_MENU_STATE_COLLAPSED -> {
-                homeLogo.isVisible = true
-                homeTitle.isGone = true
+                titleSwitcher.displayedChild = 0
                 homeButton.setImageResource(
                     if (animate && lastState != TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_close_to_haze else R.drawable.ic_dehaze_24
@@ -320,9 +322,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_EXPANDED -> {
-                homeLogo.isGone = true
-                homeTitle.isVisible = true
-                homeTitle.setText(R.string.choose_category_title)
+                titleSwitcher.displayedChild = 1
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
@@ -333,9 +333,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_SEARCH -> {
-                homeLogo.isGone = true
-                homeTitle.isVisible = true
-                homeTitle.setText(R.string.action_search)
+                titleSwitcher.displayedChild = 2
                 homeButton.setImageResource(
                     if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
                         R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
@@ -453,7 +451,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         MaterialSound.navigationBackwardSelection()
         topMenuAdapter.notifyDataSetChanged()
         setupContentFragment()
-        updateTopMenuStates(TOP_MENU_STATE_COLLAPSED)
+        updateTopMenuStates(TOP_MENU_STATE_COLLAPSED, animate = true)
     }
 
 }
