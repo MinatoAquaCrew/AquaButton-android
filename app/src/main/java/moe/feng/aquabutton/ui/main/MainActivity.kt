@@ -1,5 +1,6 @@
 package moe.feng.aquabutton.ui.main
 
+import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.Menu
@@ -18,6 +19,7 @@ import androidx.view.hideKeyboard
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
@@ -68,8 +70,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         setTransparentUi()
 
         supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_dehaze_24_primary_text)
+            setDisplayShowTitleEnabled(false)
+            setDisplayShowCustomEnabled(true)
         }
 
         topMenuList.adapter = topMenuAdapter
@@ -86,6 +88,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             }
             return@setOnEditorActionListener false
         }
+        homeButton.setOnClickListener { toggleCategoryMenu() }
 
         state = savedInstanceState?.getParcelable(KEY_STATES) ?: State()
 
@@ -140,24 +143,14 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                if (state.topMenuState != TOP_MENU_STATE_COLLAPSED) {
-                    updateTopMenuStates(newState = TOP_MENU_STATE_COLLAPSED, animate = true)
-                } else {
-                    if (state.voiceData.isEmpty()) {
-                        showSnackbar(textRes = R.string.tips_op_requires_load)
-                        return true
-                    }
-                    updateTopMenuStates(newState = TOP_MENU_STATE_EXPANDED, animate = true)
-                }
-                return true
-            }
             R.id.action_search -> {
                 if (state.voiceData.isEmpty()) {
                     showSnackbar(textRes = R.string.tips_op_requires_load)
                     return true
                 }
-                updateTopMenuStates(newState = TOP_MENU_STATE_SEARCH, animate = true)
+                if (state.topMenuState != TOP_MENU_STATE_SEARCH) {
+                    updateTopMenuStates(newState = TOP_MENU_STATE_SEARCH, animate = true)
+                }
                 return true
             }
         }
@@ -168,6 +161,18 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         showSnackbar(text)
     }
 
+    override fun toggleCategoryMenu() {
+        if (state.topMenuState != TOP_MENU_STATE_COLLAPSED) {
+            updateTopMenuStates(newState = TOP_MENU_STATE_COLLAPSED, animate = true)
+        } else {
+            if (state.voiceData.isEmpty()) {
+                showSnackbar(textRes = R.string.tips_op_requires_load)
+                return
+            }
+            updateTopMenuStates(newState = TOP_MENU_STATE_EXPANDED, animate = true)
+        }
+    }
+
     private fun showSnackbar(text: String? = null,
                              textRes: Int = 0,
                              duration: Int = Snackbar.LENGTH_SHORT) {
@@ -175,27 +180,38 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     private fun updateTopMenuStates(newState: Int? = null, animate: Boolean = false) {
+        val lastState = state.topMenuState
         if (newState != null) {
             state.topMenuState = newState
         }
+        println("topMenuState = ${state.topMenuState}")
         when (state.topMenuState) {
             TOP_MENU_STATE_COLLAPSED -> {
-                setTitle(R.string.app_name)
-                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_dehaze_24_primary_text)
+                homeTitle.setText(R.string.app_name)
+                homeButton.setImageResource(
+                    if (animate && lastState != TOP_MENU_STATE_COLLAPSED)
+                        R.drawable.ic_anim_close_to_haze else R.drawable.ic_dehaze_24
+                )
                 topMenuContainer.updateLayoutParams { height = 0 }
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_EXPANDED -> {
-                setTitle(R.string.app_name)
-                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_24_primary_text)
+                homeTitle.setText(R.string.app_name)
+                homeButton.setImageResource(
+                    if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
+                        R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
+                )
                 topMenuContainer.updateLayoutParams { height = ViewGroup.LayoutParams.WRAP_CONTENT }
                 topMenuList.isVisible = true
                 searchContainer.isGone = true
                 searchEdit.hideKeyboard()
             }
             TOP_MENU_STATE_SEARCH -> {
-                setTitle(R.string.action_search)
-                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_24_primary_text)
+                homeTitle.setText(R.string.action_search)
+                homeButton.setImageResource(
+                    if (animate && lastState == TOP_MENU_STATE_COLLAPSED)
+                        R.drawable.ic_anim_haze_to_close else R.drawable.ic_close_24
+                )
                 topMenuContainer.updateLayoutParams { height = ViewGroup.LayoutParams.WRAP_CONTENT }
                 topMenuList.isGone = true
                 searchContainer.isVisible = true
@@ -206,6 +222,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             TransitionManager.beginDelayedTransition(rootView, AutoTransition().apply {
                 duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
             })
+            (homeButton.drawable as? Animatable)?.start()
         }
     }
 

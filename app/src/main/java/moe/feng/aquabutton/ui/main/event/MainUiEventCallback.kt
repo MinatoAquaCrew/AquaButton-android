@@ -7,6 +7,9 @@ import moe.feng.common.eventshelper.EventsOnThread
 interface MainUiEventCallback {
 
     @EventsOnThread(EventsOnThread.MAIN_THREAD)
+    fun toggleCategoryMenu()
+
+    @EventsOnThread(EventsOnThread.MAIN_THREAD)
     fun showErrorTextOnSnackbar(text: String)
 
 }

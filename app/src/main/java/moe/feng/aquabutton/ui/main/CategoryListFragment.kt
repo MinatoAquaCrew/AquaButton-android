@@ -7,7 +7,10 @@ import kotlinx.android.synthetic.main.fragment_main_category_list.*
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.model.VoiceCategory
 import moe.feng.aquabutton.ui.common.BaseFragment
+import moe.feng.aquabutton.ui.main.event.MainUiEventCallback
 import moe.feng.aquabutton.ui.main.list.VoiceItemListAdapter
+import moe.feng.common.eventshelper.EventsHelper
+import moe.feng.common.eventshelper.of
 
 class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) {
 
@@ -40,6 +43,12 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
         contentList.adapter = adapter
 
         adapter.items = category.voiceList
+
+        contentTitle.setOnClickListener {
+            EventsHelper.getInstance(it.context)
+                .of<MainUiEventCallback>()
+                .toggleCategoryMenu()
+        }
     }
 
 }
