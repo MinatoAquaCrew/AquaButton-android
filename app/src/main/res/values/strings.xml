@@ -13,5 +13,15 @@
     <string name="action_shuffle">I\'m feeling lucky</string>
     <string name="tips_shuffle_result">Lucky voice: %s - %s</string>
     <string name="action_stop">Stop</string>
+    <string name="action_save_to">Save to…</string>
+    <string name="tips_voice_saving">Voice is downloading…</string>
+    <string name="tips_voice_saved">Voice is successfully saved to %s</string>
+    <string name="action_share">Share</string>
+    <string name="share_to_title">Share to…</string>
+    <string name="os_cannot_save_title">Your OS is unsupported</string>
+    <string name="os_cannot_save_message"><![CDATA[
+    Cannot launch create documents dialog which should be included in Android OS. Please contact
+    your manufacturer for help.
+    ]]></string>
 
 </resources>

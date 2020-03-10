@@ -18,6 +18,14 @@ object HttpUtils {
         client = client.newBuilder().cache(cache).build()
     }
 
+    fun cancelRequest(tag: String) {
+        (client.dispatcher.queuedCalls() + client.dispatcher.runningCalls()).forEach { call ->
+            if (tag == call.request().tag()) {
+                call.cancel()
+            }
+        }
+    }
+
     suspend fun <T> requestAsJson(request: Request, objClass: Class<T>): T = withContext(IO) {
         val response = client.newCall(request).execute()
         Log.d(TAG, "Request url: ${request.url}")

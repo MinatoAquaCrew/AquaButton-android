@@ -57,6 +57,8 @@ dependencies {
     implementation deps.androidx.recyclerview
     implementation deps.androidx.constraintlayout
 
+    implementation deps.inlineactivityresult.kotlin_coroutines
+
     implementation deps.multitype
     implementation deps.okhttp.core
     implementation deps.gson

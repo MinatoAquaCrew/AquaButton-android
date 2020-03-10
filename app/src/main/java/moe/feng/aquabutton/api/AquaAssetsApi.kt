@@ -18,6 +18,8 @@ object AquaAssetsApi : AquaApp.Component {
     private const val VOICES_URL = "$GITHUB_API_HOST/master/src/voices.json"
     private const val VOICE_FILE_URL = "$GITHUB_API_HOST/master/public/voices/%s"
 
+    const val REQ_TAG_DOWNLOAD_VOICE = "tag_download_voice"
+
     private val voicesCacheFile: File by lazy {
         val file = context.cacheDir.resolve("voices")
         if (!file.isDirectory) {
@@ -43,9 +45,14 @@ object AquaAssetsApi : AquaApp.Component {
         withContext(Dispatchers.IO) {
             val path = voice.path
 
-            val request = Request.Builder().url(VOICE_FILE_URL.format(path)).build()
+            val request = Request.Builder()
+                .url(VOICE_FILE_URL.format(path))
+                .tag(REQ_TAG_DOWNLOAD_VOICE)
+                .build()
 
-            val response = HttpUtils.client.newCall(request).execute()
+            val response = withContext(Dispatchers.IO) {
+                HttpUtils.client.newCall(request).execute()
+            }
             if (response.code == 200) {
                 val body = response.body ?: throw IOException("Empty http body")
                 val cacheFile = pathToCacheFile(path)
@@ -54,9 +61,11 @@ object AquaAssetsApi : AquaApp.Component {
                 }
                 val cacheTempFile = File(cacheFile.absolutePath + "_temp")
                 cacheTempFile.createNewFile()
-                body.byteStream().use { input ->
-                    cacheTempFile.outputStream().use { output ->
-                        input.copyTo(output)
+                withContext(Dispatchers.IO) {
+                    body.byteStream().use { input ->
+                        cacheTempFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
                     }
                 }
                 cacheTempFile.renameTo(cacheFile)
@@ -64,6 +73,10 @@ object AquaAssetsApi : AquaApp.Component {
                 throw IOException("Cannot get voice data.")
             }
         }
+    }
+
+    fun cancelDownloadingVoice() {
+        HttpUtils.cancelRequest(REQ_TAG_DOWNLOAD_VOICE)
     }
 
     suspend fun getVoice(voice: VoiceItem): File = withContext(Dispatchers.IO) {

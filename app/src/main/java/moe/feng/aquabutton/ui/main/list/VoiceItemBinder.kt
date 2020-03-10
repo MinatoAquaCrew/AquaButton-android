@@ -1,10 +1,8 @@
 package moe.feng.aquabutton.ui.main.list
 
-import android.media.MediaPlayer
-import androidx.core.content.FileProvider
+import androidx.view.contextMenuBy
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import moe.feng.aquabutton.AquaApp
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.api.AquaAssetsApi
 import moe.feng.aquabutton.databinding.VoiceSingleItemBinding
@@ -25,9 +23,25 @@ class VoiceItemBinder : ItemBasedSimpleViewBinder<VoiceItem, ViewHolder>() {
 
         private var playJob: Job? = null
 
+        init {
+            itemView.contextMenuBy(
+                menuRes = R.menu.context_menu_voice_item,
+                headerTitle = { data.description() },
+                onMenuItemClick = {
+                    if (it.itemId == R.id.action_save_to) {
+                        EventsHelper.getInstance(context)
+                            .of<MainUiEventCallback>()
+                            .requestSaveVoice(data)
+                    }
+                    true
+                }
+            )
+        }
+
         override fun onItemClick() {
             playJob = launch {
                 try {
+                    VoicePlayer.stop()
                     VoicePlayer.play(AquaAssetsApi.getVoice(data))
                 } catch (e: Exception) {
                     e.printStackTrace()

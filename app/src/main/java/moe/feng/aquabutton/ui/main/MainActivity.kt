@@ -1,7 +1,9 @@
 package moe.feng.aquabutton.ui.main
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.Animatable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -10,7 +12,11 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.inputmethod.EditorInfo
-import android.widget.FrameLayout
+import android.webkit.MimeTypeMap
+import androidx.appcompat.app.messageRes
+import androidx.appcompat.app.okButton
+import androidx.appcompat.app.showAlertDialog
+import androidx.appcompat.app.titleRes
 import androidx.appcompat.widget.TooltipCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isGone
@@ -36,6 +42,7 @@ import moe.feng.aquabutton.model.selectItem
 import moe.feng.aquabutton.ui.common.BaseActivity
 import moe.feng.aquabutton.ui.main.event.MainUiEventCallback
 import moe.feng.aquabutton.ui.main.list.TopMenuListAdapter
+import moe.feng.aquabutton.util.FileUtils
 import moe.feng.aquabutton.util.VoicePlayer
 import moe.feng.common.eventshelper.EventsHelper
 
@@ -65,6 +72,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
     private lateinit var state: State
     private var searchJob: Job? = null
+    private var saveJob: Job? = null
 
     private val topMenuAdapter: TopMenuListAdapter = TopMenuListAdapter(
         onVoiceCategoryItemClick = this::onVoiceCategoryItemClick
@@ -212,12 +220,65 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         }
     }
 
+    override fun requestSaveVoice(voice: VoiceItem) {
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        val ext = MimeTypeMap.getFileExtensionFromUrl(voice.path)
+        val mimeType = mimeTypeMap.getExtensionFromMimeType(ext) ?: "audio/*"
+        val fileName = voice.description() + "." + (ext ?: "mp3")
+
+        saveJob?.cancel()
+        saveJob = launchWhenCreated {
+            val uri: Uri?
+            try {
+                uri = FileUtils.requestNewDocumentUri(this@MainActivity, mimeType, fileName)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showAlertDialog {
+                    titleRes = R.string.os_cannot_save_title
+                    messageRes = R.string.os_cannot_save_message
+                    okButton()
+                }
+                return@launchWhenCreated
+            }
+            if (uri != null) {
+                val saveProgressBar = showSnackbar(
+                    textRes = R.string.tips_voice_saving,
+                    duration = Snackbar.LENGTH_INDEFINITE,
+                    actionTextRes = android.R.string.cancel,
+                    onAction = {
+                        AquaAssetsApi.cancelDownloadingVoice()
+                        saveJob?.cancel()
+                    }
+                )
+                val voiceFile = AquaAssetsApi.getVoice(voice)
+                whenCreated { saveProgressBar.dismiss() }
+                FileUtils.copyFileToUri(this@MainActivity, voiceFile, uri)
+                val path = uri.toString()
+                showSnackbar(
+                    text = getString(R.string.tips_voice_saved, path),
+                    duration = Snackbar.LENGTH_LONG,
+                    actionTextRes = R.string.action_share,
+                    onAction = {
+                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                            putExtra(Intent.EXTRA_STREAM, uri)
+                            type = mimeType
+                        }
+                        startActivity(Intent.createChooser(
+                            sendIntent,
+                            getString(R.string.share_to_title)
+                        ))
+                    }
+                )
+            }
+        }
+    }
+
     private fun showSnackbar(text: String? = null,
                              textRes: Int = 0,
                              duration: Int = Snackbar.LENGTH_SHORT,
                              actionText: String? = null,
                              actionTextRes: Int = 0,
-                             onAction: (() -> Unit)? = null) {
+                             onAction: (() -> Unit)? = null): Snackbar {
         val bar = Snackbar.make(rootView, text ?: getString(textRes), duration)
         if (onAction != null) {
             val actionTextValue = actionText
@@ -226,6 +287,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             bar.setAction(actionTextValue) { onAction() }
         }
         bar.show()
+        return bar
     }
 
     private fun updateTopMenuStates(newState: Int? = null, animate: Boolean = false) {
@@ -363,6 +425,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             },
             duration = Snackbar.LENGTH_LONG
         )
+        VoicePlayer.stop()
         VoicePlayer.play(AquaAssetsApi.getVoice(luckyVoice))
     }
 

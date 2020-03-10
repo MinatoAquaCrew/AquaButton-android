@@ -9,6 +9,6 @@
 
     <color name="voice_icon_bg_normal">@color/material_grey_400</color>
 
-    <color name="bottom_nav_background">#D8FFFFFF</color>
+    <color name="bottom_nav_background">#E6FFFFFF</color>
 
 </resources>

@@ -4,6 +4,7 @@ ext {
     room_library_version = "2.2.4"
     events_helper_version = "1.0.2"
     work_version = "2.3.2"
+    inline_activity_result_version = "0.2.0"
 
     deps = [
         android     : [
@@ -68,6 +69,10 @@ ext {
         mmkv        : 'com.tencent:mmkv-static:1.0.24',
         namedregexp : 'com.github.tony19:named-regexp:0.2.5',
         junit       : 'junit:junit:4.13',
-        fastscroll  : 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
+        fastscroll  : 'com.simplecityapps:recyclerview-fastscroll:2.0.0',
+        inlineactivityresult: [
+            core             : "com.afollestad.inline-activity-result:core:$inline_activity_result_version",
+            kotlin_coroutines: "com.afollestad.inline-activity-result:coroutines:$inline_activity_result_version"
+        ]
     ]
 }
