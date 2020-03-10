@@ -23,21 +23,55 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/topMenuContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+        tools:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topMenuList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/voice_category_menu_item"
+            tools:itemCount="8"
+            tools:visibility="gone"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.AquaButton.TextInputLayout.MainSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/ThemeOverlay.AquaButton.TextInputEditText.MainSearch"
+                    android:hint="@string/search_hint"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"
+                    tools:text="holoLive"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/contentContainer"

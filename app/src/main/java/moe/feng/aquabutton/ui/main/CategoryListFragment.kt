@@ -30,7 +30,8 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        category = requireArguments().getParcelable(EXTRA_CATEGORY)!!
+        category = requireArguments().getParcelable(EXTRA_CATEGORY)
+            ?: throw IllegalArgumentException("category is null")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

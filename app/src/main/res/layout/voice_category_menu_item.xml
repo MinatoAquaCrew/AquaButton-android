@@ -9,11 +9,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        tools:background="?android:colorPrimary">
+        tools:background="?android:colorPrimary"
+        tools:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
         <LinearLayout
             android:id="@android:id/button1"

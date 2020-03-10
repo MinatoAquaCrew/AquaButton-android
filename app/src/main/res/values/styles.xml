@@ -17,4 +17,15 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Widget.AquaButton.TextInputLayout.MainSearch"
+        parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?android:textColorSecondary</item>
+        <item name="hintTextColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="ThemeOverlay.AquaButton.TextInputEditText.MainSearch"
+        parent="@style/ThemeOverlay.MaterialComponents.Dark">
+        <item name="android:colorControlActivated">?android:textColorPrimary</item>
+    </style>
+
 </resources>
