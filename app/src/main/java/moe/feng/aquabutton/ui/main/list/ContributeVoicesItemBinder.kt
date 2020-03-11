@@ -25,7 +25,7 @@ class ContributeVoicesItemBinder : ItemBasedSimpleViewBinder<Item, ViewHolder>()
         }
 
         override fun onBind() {
-            text1.setText(data.textRes)
+            text1.text = context.getString(data.textRes, context.getString(R.string.vtuber_name))
         }
 
     }

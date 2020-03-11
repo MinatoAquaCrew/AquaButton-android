@@ -1,0 +1,73 @@
+<resources>
+
+    <string name="app_name">夸按鈕</string>
+
+    <string name="action_search">搜尋</string>
+    <string name="action_settings">設定</string>
+    <string name="action_reload">重新加載</string>
+    <string name="search_hint">關鍵詞</string>
+    <string name="search_result_title">關鍵詞 “%s” 的結果</string>
+    <string name="tips_input_search_keyword">輸入關鍵詞進行搜尋</string>
+    <string name="tips_op_requires_load">這個動作需要完成資料加載。</string>
+    <string name="tips_failed_to_play">播放語音失敗。</string>
+    <string name="tips_failed_to_download">下載語音失敗。</string>
+    <string name="choose_category_title">選擇分類</string>
+    <string name="action_shuffle">手氣不錯</string>
+    <string name="tips_shuffle_result">幸運語音：%s - %s</string>
+    <string name="action_stop">停止</string>
+    <string name="action_save_to">保存至…</string>
+    <string name="tips_voice_saving">語音正在下載…</string>
+    <string name="tips_voice_saved">語音成功保存至 %s</string>
+    <string name="action_share">發送</string>
+    <string name="share_to_title">發送到…</string>
+    <string name="os_cannot_save_title">你的系統不受支援</string>
+    <string name="os_cannot_save_message"><![CDATA[
+    無法啟動 Android 系統原有的創建檔案對話框。請聯絡你的電話廠商獲取幫助。
+    ]]></string>
+    <string name="no_result_text"><![CDATA[
+    沒有結果。你可以在 GitHub 上為%s貢獻更多語音，點按這裡打開語音倉庫。
+    ]]></string>
+    <string name="missing_voices_text"><![CDATA[
+    未找到想要的語音？你可以在 GitHub 上為%s貢獻更多語音和改善描述翻譯，點按這裡打開語音倉庫。
+    ]]></string>
+    <string name="action_licenses">許可</string>
+    <string name="licenses_open_source_licenses">開放式源碼軟件許可證</string>
+    <string name="licenses_open_source_licenses_summary"><![CDATA[
+    感謝這些項目的貢獻
+    ]]></string>
+    <string name="licenses_voice_source">湊あくあ語音</string>
+    <string name="licenses_voice_source_summary">© Cover Corp. / Hololive production</string>
+    <string name="licenses_material_sound">Material Design 音效資源</string>
+    <string name="licenses_material_sound_summary"><![CDATA[
+    由 Google 創造，以 CC-BY 4.0 協議發佈使用
+    ]]></string>
+    <string name="subscribe_button">來自 %s</string>
+    <string name="user_interface_title">用戶介面</string>
+    <string name="ui_sound_enabled_title">啟用介面音效</string>
+    <string name="ui_sound_enabled_summary"><![CDATA[
+    介面音效不會在電話處於靜音模式時播放。
+    ]]></string>
+    <string name="dark_mode_title">夜間模式</string>
+    <string name="dark_mode_follow_system">跟隨系統</string>
+    <string name="dark_mode_force_on">始終開啟</string>
+    <string name="dark_mode_force_off">始終關閉</string>
+    <string name="library_resources_title">支援庫 &amp; 資源</string>
+    <string name="original_project_title">原項目</string>
+    <string name="original_project_summary"><![CDATA[
+    夸按鈕瀏覽器端版本。我們使用這個項目的語音資源，你可以對這個項目貢獻更多的語音。
+    ]]></string>
+    <string name="load_failed_text">加載數據失敗</string>
+    <string name="load_failed_retry_button">重試</string>
+    <string name="storage_title">存儲</string>
+    <string name="clear_voice_cache_title">清除語音快取</string>
+    <string name="clear_voice_cache_summary">總計大小：%s</string>
+    <string name="placeholder_calculating">計算中…</string>
+    <string name="tips_clear_cache_format">成功清除了 %s 資料。</string>
+
+    <string name="aqua_button_licenses_category">項目協議</string>
+    <string name="aqua_button_licenses_program_title">程式源代碼</string>
+    <string name="aqua_button_licenses_program_summary"><![CDATA[
+    © GitHub:MinatoAquaCrew 2020 / 在 GPL v3 協議下發佈可用
+    ]]></string>
+
+</resources>

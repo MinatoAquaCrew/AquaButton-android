@@ -1,0 +1,73 @@
+<resources>
+
+    <string name="app_name">あくあボタン</string>
+
+    <string name="action_search">検索</string>
+    <string name="action_settings">設定</string>
+    <string name="action_reload">リロード</string>
+    <string name="search_hint">キーワード</string>
+    <string name="search_result_title">キーワード「%s」検索結果</string>
+    <string name="tips_input_search_keyword">検索するキーワードを入力してください</string>
+    <string name="tips_op_requires_load">この操作では、データのロードを完了する必要があります。</string>
+    <string name="tips_failed_to_play">音声を再生できませんでした。</string>
+    <string name="tips_failed_to_download">音声をダウンロードできませんでした。</string>
+    <string name="choose_category_title">カテゴリーを選択</string>
+    <string name="action_shuffle">I\'m feeling lucky</string>
+    <string name="tips_shuffle_result">ラッキーボイス：%s - %s</string>
+    <string name="action_stop">停止する</string>
+    <string name="action_save_to">保存…</string>
+    <string name="tips_voice_saving">音声をダウンロードしています…</string>
+    <string name="tips_voice_saved">音声を保存しました：%s</string>
+    <string name="action_share">共有</string>
+    <string name="share_to_title">共有…</string>
+    <string name="os_cannot_save_title">あなたの Android OS はサポートされていません</string>
+    <string name="os_cannot_save_message"><![CDATA[
+    Android の「ドキュメントの作成」ダイアログを起動できません。電話の製造元に問い合わせてください。
+    ]]></string>
+    <string name="no_result_text"><![CDATA[
+    結果がありません。GitHubで%sにより多くの音声を投稿できます。ここをクリックして音声リポジトリを開きます。
+    ]]></string>
+    <string name="missing_voices_text"><![CDATA[
+    音が見つかりませんか？GitHubで%sにより多くの音声を投稿できます。ここをクリックして音声リポジトリを開きます。
+    ]]></string>
+    <string name="action_licenses">使用許可</string>
+    <string name="licenses_open_source_licenses">OSS 使用許可</string>
+    <string name="licenses_open_source_licenses_summary"><![CDATA[
+    これらのプロジェクトにご協力いただきありがとうございます
+    ]]></string>
+    <string name="licenses_voice_source">湊あくあ 音声</string>
+    <string name="licenses_voice_source_summary">© Cover Corp. / Hololive production</string>
+    <string name="licenses_material_sound">Material Design サウンドリソース</string>
+    <string name="licenses_material_sound_summary"><![CDATA[
+    Google が作成。CC-BY 4.0プロトコルでリリース
+    ]]></string>
+    <string name="subscribe_button">%sから</string>
+    <string name="user_interface_title">ユーザーインターフェース</string>
+    <string name="ui_sound_enabled_title">インターフェイスサウンド</string>
+    <string name="ui_sound_enabled_summary"><![CDATA[
+    電話機がサイレントモードの場合、インターフェイスの効果音は再生されません。
+    ]]></string>
+    <string name="dark_mode_title">ダークモード</string>
+    <string name="dark_mode_follow_system">システムに従う</string>
+    <string name="dark_mode_force_on">常にオン</string>
+    <string name="dark_mode_force_off">常にオフ</string>
+    <string name="library_resources_title">ライブラリー &amp; 資源</string>
+    <string name="original_project_title">オリジナルアイテム</string>
+    <string name="original_project_summary"><![CDATA[
+    あくあボタンのブラウザバージョン。プロジェクトの音声リソースを使用しました。
+    ]]></string>
+    <string name="load_failed_text">データの読み込みに失敗しました</string>
+    <string name="load_failed_retry_button">再試行</string>
+    <string name="storage_title">記憶</string>
+    <string name="clear_voice_cache_title">音声キャッシュをクリア</string>
+    <string name="clear_voice_cache_summary">総サイズ：%s</string>
+    <string name="placeholder_calculating">計算する…</string>
+    <string name="tips_clear_cache_format">%s のデータを正常に消去しました。</string>
+
+    <string name="aqua_button_licenses_category">プロジェクトライセンス</string>
+    <string name="aqua_button_licenses_program_title">プログラムソース</string>
+    <string name="aqua_button_licenses_program_summary"><![CDATA[
+    © GitHub:MinatoAquaCrew 2020 / GPL v3 で利用可能
+    ]]></string>
+
+</resources>

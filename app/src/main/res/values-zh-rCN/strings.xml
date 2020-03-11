@@ -1,0 +1,73 @@
+<resources>
+
+    <string name="app_name">夸按钮</string>
+
+    <string name="action_search">搜索</string>
+    <string name="action_settings">设置</string>
+    <string name="action_reload">重新加载</string>
+    <string name="search_hint">关键词</string>
+    <string name="search_result_title">关键词 “%s” 的结果</string>
+    <string name="tips_input_search_keyword">输入关键词进行搜索</string>
+    <string name="tips_op_requires_load">这个操作需要完成数据加载。</string>
+    <string name="tips_failed_to_play">播放语音失败。</string>
+    <string name="tips_failed_to_download">下载语音失败。</string>
+    <string name="choose_category_title">选择分类</string>
+    <string name="action_shuffle">手气不错</string>
+    <string name="tips_shuffle_result">幸运语音：%s - %s</string>
+    <string name="action_stop">停止</string>
+    <string name="action_save_to">保存到…</string>
+    <string name="tips_voice_saving">语音正在下载…</string>
+    <string name="tips_voice_saved">语音成功保存至 %s</string>
+    <string name="action_share">分享</string>
+    <string name="share_to_title">分享到…</string>
+    <string name="os_cannot_save_title">你的系统不受支持</string>
+    <string name="os_cannot_save_message"><![CDATA[
+    无法启动 Android 系统应有的创建文档对话框。请联系你的手机厂商获取帮助。
+    ]]></string>
+    <string name="no_result_text"><![CDATA[
+    没有结果。你可以在 GitHub 上为%s贡献更多语音，点击这里打开语音仓库。
+    ]]></string>
+    <string name="missing_voices_text"><![CDATA[
+    未找到想要的语音？你可以在 GitHub 上为%s贡献更多语音和改善描述翻译，点击这里打开语音仓库。
+    ]]></string>
+    <string name="action_licenses">许可</string>
+    <string name="licenses_open_source_licenses">开源软件许可证</string>
+    <string name="licenses_open_source_licenses_summary"><![CDATA[
+    感谢这些项目的贡献
+    ]]></string>
+    <string name="licenses_voice_source">湊あくあ语音</string>
+    <string name="licenses_voice_source_summary">© Cover Corp. / Hololive production</string>
+    <string name="licenses_material_sound">Material Design 音效资源</string>
+    <string name="licenses_material_sound_summary"><![CDATA[
+    由 Google 创造，以 CC-BY 4.0 协议发布使用
+    ]]></string>
+    <string name="subscribe_button">来自 %s</string>
+    <string name="user_interface_title">用户界面</string>
+    <string name="ui_sound_enabled_title">启用界面音效</string>
+    <string name="ui_sound_enabled_summary"><![CDATA[
+    界面音效不会在手机处于静音模式时播放。
+    ]]></string>
+    <string name="dark_mode_title">夜间模式</string>
+    <string name="dark_mode_follow_system">跟随系统</string>
+    <string name="dark_mode_force_on">始终开启</string>
+    <string name="dark_mode_force_off">始终关闭</string>
+    <string name="library_resources_title">依赖库 &amp; 资源</string>
+    <string name="original_project_title">原项目</string>
+    <string name="original_project_summary"><![CDATA[
+    夸按钮浏览器端版本。我们使用这个项目的语音资源，你可以对这个项目贡献更多的语音。
+    ]]></string>
+    <string name="load_failed_text">加载数据失败</string>
+    <string name="load_failed_retry_button">重试</string>
+    <string name="storage_title">存储</string>
+    <string name="clear_voice_cache_title">清除语音缓存</string>
+    <string name="clear_voice_cache_summary">总计大小：%s</string>
+    <string name="placeholder_calculating">计算中…</string>
+    <string name="tips_clear_cache_format">成功清除了 %s 数据。</string>
+
+    <string name="aqua_button_licenses_category">项目协议</string>
+    <string name="aqua_button_licenses_program_title">程序源码</string>
+    <string name="aqua_button_licenses_program_summary"><![CDATA[
+    © GitHub:MinatoAquaCrew 2020 / 在 GPL v3 协议下发布可用
+    ]]></string>
+
+</resources>

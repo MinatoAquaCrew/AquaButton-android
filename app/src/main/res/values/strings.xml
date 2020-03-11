@@ -29,11 +29,11 @@
     your manufacturer for help.
     ]]></string>
     <string name="no_result_text"><![CDATA[
-    No result. You can contribute extra voices of Minato Aqua and improve voices description
-    translation on GitHub. Tap to open voice source repository.
+    No result. You can contribute extra voices of %s on GitHub.
+    Tap to open voice source repository.
     ]]></string>
     <string name="missing_voices_text"><![CDATA[
-    Cannot find voices you want? You can contribute extra voices of Minato Aqua and
+    Cannot find voices you want? You can contribute extra voices of %s and
     improve voices description translation on GitHub. Tap to open voice source repository.
     ]]></string>
     <string name="action_licenses">Licenses</string>

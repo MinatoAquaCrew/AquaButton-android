@@ -90,6 +90,12 @@ class OSSLicensesFragment : BaseFragment(R.layout.common_list) {
                 author = "Christian Robertson"
                 githubUrl("googlefonts/robotoslab")
             }
+            license {
+                name = "Source Han Serif"
+                author = "Adobe"
+                license = "SIL Open Font License 1.1"
+                githubUrl("adobe-fonts/source-han-serif")
+            }
             sortByName()
         }
 
