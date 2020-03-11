@@ -5,6 +5,15 @@ ext {
     events_helper_version = "1.0.2"
     work_version = "2.3.2"
     inline_activity_result_version = "0.2.0"
+    material_preferences_version = "4.2.0-alpha01"
+
+    repos = [
+        jitpack: "https://www.jitpack.io",
+        personal: [
+            eventshelper: "https://dl.bintray.com/fython/EventsHelper",
+            materialpreferences: "https://dl.bintray.com/rikkaw/MaterialPreference"
+        ]
+    ]
 
     deps = [
         android     : [
@@ -73,6 +82,12 @@ ext {
         inlineactivityresult: [
             core             : "com.afollestad.inline-activity-result:core:$inline_activity_result_version",
             kotlin_coroutines: "com.afollestad.inline-activity-result:coroutines:$inline_activity_result_version"
+        ],
+        materialpreferences: [
+            legacy: "moe.shizuku.preference:preference-android:$material_preferences_version",
+            appcompat: "moe.shizuku.preference:preference-appcompat:$material_preferences_version",
+            simplemenu_legacy: "moe.shizuku.preference:preference-simplemenu-android:$material_preferences_version",
+            simplemenu_appcompat: "moe.shizuku.preference:preference-simplemenu-appcompat:$material_preferences_version"
         ]
     ]
 }

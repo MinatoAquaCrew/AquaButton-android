@@ -1,18 +1,15 @@
 package moe.feng.aquabutton.ui.settings
 
 import android.content.Context
-import android.content.Intent
-import androidx.core.net.toUri
-import androidx.preference.Preference
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.ui.common.BasePreferenceFragment
+import moe.shizuku.preference.Preference
 
 class LicensesSettingsFragment : BasePreferenceFragment(R.xml.pref_licenses) {
 
     companion object {
 
         const val KEY_OSS_LICENSES = "oss_licenses"
-        const val KEY_HOLO_TERMS = "holo_terms"
 
     }
 

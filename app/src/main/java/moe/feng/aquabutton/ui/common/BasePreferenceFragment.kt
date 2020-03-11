@@ -5,16 +5,16 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import moe.feng.aquabutton.ui.settings.PreferenceActivity
+import moe.shizuku.preference.Preference
+import moe.shizuku.preference.PreferenceFragment
 
 abstract class BasePreferenceFragment(
     private val preferencesRes: Int = 0
-) : PreferenceFragmentCompat() {
+) : PreferenceFragment() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         if (preferencesRes != 0) {
@@ -33,7 +33,7 @@ abstract class BasePreferenceFragment(
 
     fun setPreferenceClickListener(key: String,
                                    onClick: suspend CoroutineScope.() -> Unit) {
-        findPreference<Preference>(key)!!.setOnPreferenceClickListener {
+        findPreference(key)!!.setOnPreferenceClickListener {
             lifecycleScope.launch { onClick() }
             true
         }
@@ -42,7 +42,7 @@ abstract class BasePreferenceFragment(
     inline fun <reified T : Any> setPreferenceChangeListener(
         key: String,
         crossinline onChange: (T) -> Boolean) {
-        findPreference<Preference>(key)!!.setOnPreferenceChangeListener { _, newValue ->
+        findPreference(key)!!.setOnPreferenceChangeListener { _, newValue ->
             onChange(newValue as T)
         }
     }
@@ -56,7 +56,7 @@ abstract class BasePreferenceFragment(
     }
 
     inline fun <reified T : Preference> preference(key: String): Lazy<T> {
-        return lazy { findPreference<T>(key)!! }
+        return lazy { findPreference(key) as T }
     }
 
     fun launchWhenCreated(block: suspend CoroutineScope.() -> Unit): Job =

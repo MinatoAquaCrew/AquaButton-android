@@ -1,4 +1,6 @@
-package androidx.preference
+package moe.feng.aquabutton.util.ext
+
+import moe.shizuku.preference.*
 
 inline fun <T : TwoStatePreference> T.onValueChanged(
     crossinline block: T.(value: Boolean) -> Boolean

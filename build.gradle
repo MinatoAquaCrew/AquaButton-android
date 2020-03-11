@@ -15,8 +15,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://www.jitpack.io" }
-        maven { url 'https://dl.bintray.com/fython/EventsHelper' }
+        maven { url repos.jitpack }
+        maven { url repos.personal.eventshelper }
+        maven { url repos.personal.materialpreferences }
     }
 }
 

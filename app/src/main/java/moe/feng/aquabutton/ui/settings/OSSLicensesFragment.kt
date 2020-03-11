@@ -3,6 +3,7 @@ package moe.feng.aquabutton.ui.settings
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.updatePadding
 import com.drakeet.multitype.MultiTypeAdapter
 import kotlinx.android.synthetic.main.common_list.*
 import moe.feng.aquabutton.R
@@ -104,6 +105,9 @@ class OSSLicensesFragment : BaseFragment(R.layout.common_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView.adapter = adapter
+
+        val padding = resources.getDimensionPixelSize(R.dimen.padding_8dp)
+        recyclerView.updatePadding(top = padding, bottom = padding)
     }
 
 }

@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="appBarPopupTheme">@style/ThemeOverlay.AquaButton.AppBarPopupTheme</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme">
@@ -22,6 +24,9 @@
         <item name="hintTextColor">?android:textColorSecondary</item>
     </style>
 
+    <style name="ThemeOverlay.AquaButton.AppBarPopupTheme"
+        parent="ThemeOverlay.MaterialComponents.Light"/>
+
     <style name="ThemeOverlay.AquaButton.TextInputEditText.MainSearch"
         parent="@style/ThemeOverlay.MaterialComponents.Dark">
         <item name="android:colorControlActivated">?android:textColorPrimary</item>
@@ -33,7 +38,7 @@
         <item name="android:background">@drawable/subscribe_button_background</item>
         <item name="android:layout_height">@dimen/subscribe_button_size</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Button</item>
-        <item name="android:textColor">?android:colorPrimary</item>
+        <item name="android:textColor">@color/subscribe_button_text_color</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingStart">@dimen/subscribe_button_radius</item>
         <item name="android:paddingEnd">@dimen/subscribe_button_radius</item>

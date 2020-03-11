@@ -55,7 +55,6 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.materialcomponents
     implementation deps.androidx.recyclerview
-    implementation deps.androidx.preference
 
     implementation deps.inlineactivityresult.kotlin_coroutines
 
@@ -69,6 +68,9 @@ dependencies {
     implementation deps.eventshelper.core
     kapt deps.eventshelper.compiler
     implementation deps.eventshelper.ktx
+
+    implementation deps.materialpreferences.legacy
+    implementation deps.materialpreferences.simplemenu_legacy
 
     testImplementation deps.junit
     androidTestImplementation deps.androidx.test.junit
