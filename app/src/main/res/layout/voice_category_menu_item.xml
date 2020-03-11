@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="moe.feng.aquabutton.model.VoiceCategory"/>
+        <import type="aquacrew.aquabutton.model.VoiceCategory"/>
         <variable name="data" type="VoiceCategory" />
     </data>
 

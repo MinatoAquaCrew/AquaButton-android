@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="moe.feng.aquabutton.model.LicenseItem"/>
+        <import type="aquacrew.aquabutton.model.LicenseItem"/>
         <variable name="data" type="LicenseItem" />
     </data>
 

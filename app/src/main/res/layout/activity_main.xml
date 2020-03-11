@@ -104,7 +104,7 @@
 
     </LinearLayout>
 
-    <moe.feng.aquabutton.ui.common.FloatingActionButtonContainer
+    <aquacrew.aquabutton.ui.common.FloatingActionButtonContainer
         android:id="@+id/fabContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             app:layout_anchor="@+id/bottomNavBackground"
             app:layout_anchorGravity="end"/>
 
-    </moe.feng.aquabutton.ui.common.FloatingActionButtonContainer>
+    </aquacrew.aquabutton.ui.common.FloatingActionButtonContainer>
 
     <View
         android:id="@+id/bottomNavBackground"

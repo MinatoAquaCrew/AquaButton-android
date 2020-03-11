@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="moe.feng.aquabutton">
+    package="aquacrew.aquabutton">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -33,7 +33,7 @@
             android:exported="true"/>
 
         <provider
-            android:authorities="moe.feng.aquabutton.fileprovider"
+            android:authorities="aquacrew.aquabutton.fileprovider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
