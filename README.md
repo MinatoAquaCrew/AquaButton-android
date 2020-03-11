@@ -2,7 +2,7 @@ AquaButton ⚓
 ======
 
 [![GPLv3 license](https://img.shields.io/github/license/MinatoAquaCrew/AquaButton-android.svg)](https://github.com/MinatoAquaCrew/AquaButton-android/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/MinatoAquaCrew/AquaButton-android.svg)](https://GitHub.com/MinatoAquaCrew/AquaButton-android/releases/)
+[![GitHub release](https://img.shields.io/github/release/MinatoAquaCrew/AquaButton-android.svg)](https://gitHub.com/MinatoAquaCrew/AquaButton-android/releases/)
 
 **AquaButton** can play voices of [Minato Aqua（湊あくあ）](./AMT.md) on your Android phone/tablet.
 
@@ -47,7 +47,7 @@ You can read description in this repo about how to add or modify voice.
 
 Please help us translate into English and Japanese (or more languages!)
 
-The language files for the main program are created in standard Android project structure. For example, Japanese translation is saved in [`app/src/main/res/values-ja/strings.xml`](https://github.com/MinatoAquaCrew/AquaButton-android/blob/master/src/app/src/main/res/values-ja/strings.xml).
+The language files for the main program are created in standard Android project structure. For example, Japanese translation is saved in [`app/src/main/res/values-ja/strings.xml`](https://github.com/MinatoAquaCrew/AquaButton-android/blob/master/app/src/main/res/values-ja/strings.xml).
 
 The language files for voices are in [zyzsdy/aqua-button (AquaButton Web)](https://github.com/zyzsdy/aqua-button).
 
