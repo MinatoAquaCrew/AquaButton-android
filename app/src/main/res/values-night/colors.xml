@@ -9,6 +9,7 @@
 
     <color name="voice_icon_bg_normal">@color/material_grey_700</color>
     <color name="subscribe_button_text_color">@color/material_deep_purple_200</color>
+    <color name="subscribe_button_background">@color/material_grey_850</color>
 
     <color name="bottom_nav_background">#8F000000</color>
 

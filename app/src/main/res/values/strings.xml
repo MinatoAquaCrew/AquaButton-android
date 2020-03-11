@@ -49,7 +49,7 @@
     Produced by Google. Available under CC-BY 4.0
     ]]></string>
     <string name="licenses_material_sound_url" translatable="false">https://material.io/design/sound/sound-resources.html</string>
-    <string name="subscribe_button">Subscribe %s</string>
+    <string name="subscribe_button">From %s</string>
     <string name="user_interface_title">User interface</string>
     <string name="ui_sound_enabled_title">Enabled interface sound</string>
     <string name="ui_sound_enabled_summary"><![CDATA[

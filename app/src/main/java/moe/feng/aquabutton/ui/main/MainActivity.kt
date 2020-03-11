@@ -219,6 +219,19 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        if (state.topMenuState != TOP_MENU_STATE_COLLAPSED) {
+            MaterialSound.navigationBackwardSelection()
+            updateTopMenuStates(TOP_MENU_STATE_COLLAPSED, animate = true)
+            return
+        }
+        if (state.searchKeyword != null) {
+            clearSearchResult()
+            return
+        }
+        super.onBackPressed()
+    }
+
     override fun showErrorTextOnSnackbar(text: String) {
         MaterialSound.alertError3()
         showSnackbar(text)
@@ -304,6 +317,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     private fun startLoad() {
+        updateTopMenuStates(TOP_MENU_STATE_COLLAPSED, animate = true)
         loadJob?.cancel()
         loadJob = launch {
             try {

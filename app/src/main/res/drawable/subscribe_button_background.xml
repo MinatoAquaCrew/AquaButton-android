@@ -5,7 +5,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/subscribe_button_radius" />
             <size android:height="@dimen/subscribe_button_size" />
-            <solid android:color="?android:colorControlHighlight" />
+            <solid android:color="@color/subscribe_button_background" />
         </shape>
     </item>
     <item android:id="@android:id/mask">
