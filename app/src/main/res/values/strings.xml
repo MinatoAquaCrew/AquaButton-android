@@ -2,7 +2,7 @@
 
     <string name="app_name">AquaButton</string>
 
-    <string name="vtuber_name">湊あくあ</string>
+    <string name="vtuber_name" translatable="false">湊あくあ</string>
     <string name="vtuber_url" translatable="false">https://www.hololive.tv/portfolio/items/336383</string>
 
     <string name="action_search">Search</string>
@@ -30,6 +30,10 @@
     No result. You can contribute extra voices of Minato Aqua and improve voices description
     translation on GitHub. Tap to open voice source repository.
     ]]></string>
+    <string name="missing_voices_text"><![CDATA[
+    Cannot find voices you want? You can contribute extra voices of Minato Aqua and
+    improve voices description translation on GitHub. Tap to open voice source repository.
+    ]]></string>
     <string name="action_licenses">Licenses</string>
     <string name="licenses_open_source_licenses">Open source software licenses</string>
     <string name="licenses_open_source_licenses_summary"><![CDATA[
@@ -53,5 +57,20 @@
     <string name="dark_mode_follow_system">Follow system</string>
     <string name="dark_mode_force_on">Always on</string>
     <string name="dark_mode_force_off">Always off</string>
+    <string name="library_resources_title">Library &amp; Resources</string>
+    <string name="original_project_title">Original project</string>
+    <string name="original_project_name" translatable="false">zyzsdy/aqua-button</string>
+    <string name="original_project_summary"><![CDATA[
+    Aqua Button browser-side version. We use voice assets from this project.
+    You can contribute extra voices to this project.
+    ]]></string>
+    <string name="original_project_url" translatable="false">https://github.com/zyzsdy/aqua-button</string>
+
+    <string name="aqua_button_licenses_category">Project Licenses</string>
+    <string name="aqua_button_licenses_program_title">Source code</string>
+    <string name="aqua_button_licenses_program_summary"><![CDATA[
+    © GitHub:MinatoAquaCrew 2020 / Available under GPL v3
+    ]]></string>
+    <string name="aqua_button_licenses_program_url" translatable="false">https://github.com/MinatoAquaCrew/AquaButton-android</string>
 
 </resources>

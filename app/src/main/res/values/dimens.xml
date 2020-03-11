@@ -6,6 +6,7 @@
     
     <dimen name="fab_margin_end">16dp</dimen>
     <dimen name="fab_margin_bottom">16dp</dimen>
+    <dimen name="fab_size">48dp</dimen>
 
     <dimen name="subscribe_button_size">32dp</dimen>
     <dimen name="subscribe_button_radius">16dp</dimen>

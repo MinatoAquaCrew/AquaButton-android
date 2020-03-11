@@ -2,21 +2,45 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        android:key="oss_licenses"
-        android:title="@string/licenses_open_source_licenses"
-        android:summary="@string/licenses_open_source_licenses_summary"/>
+    <PreferenceCategory android:title="@string/aqua_button_licenses_category">
 
-    <moe.feng.aquabutton.ui.settings.ViewLinkPreference
-        android:key="holo_terms"
-        android:title="@string/licenses_voice_source"
-        android:summary="@string/licenses_voice_source_summary"
-        app:linkUrl="@string/licenses_holo_terms_url"/>
+        <moe.feng.aquabutton.ui.settings.ViewLinkPreference
+            android:key="source_code"
+            android:title="@string/aqua_button_licenses_program_title"
+            android:summary="@string/aqua_button_licenses_program_summary"
+            app:linkUrl="@string/aqua_button_licenses_program_url"/>
 
-    <moe.feng.aquabutton.ui.settings.ViewLinkPreference
-        android:key="material_sound"
-        android:title="@string/licenses_material_sound"
-        android:summary="@string/licenses_material_sound_summary"
-        app:linkUrl="@string/licenses_material_sound_url"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/library_resources_title">
+
+        <Preference
+            android:key="oss_licenses"
+            android:title="@string/licenses_open_source_licenses"
+            android:summary="@string/licenses_open_source_licenses_summary"/>
+
+        <moe.feng.aquabutton.ui.settings.ViewLinkPreference
+            android:key="holo_terms"
+            android:title="@string/licenses_voice_source"
+            android:summary="@string/licenses_voice_source_summary"
+            app:linkUrl="@string/licenses_holo_terms_url"/>
+
+        <moe.feng.aquabutton.ui.settings.ViewLinkPreference
+            android:key="material_sound"
+            android:title="@string/licenses_material_sound"
+            android:summary="@string/licenses_material_sound_summary"
+            app:linkUrl="@string/licenses_material_sound_url"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/original_project_title">
+
+        <moe.feng.aquabutton.ui.settings.ViewLinkPreference
+            android:key="original_project"
+            android:title="@string/original_project_name"
+            android:summary="@string/original_project_summary"
+            app:linkUrl="@string/original_project_url"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.WindowInsets
 import androidx.core.os.bundleOf
 import androidx.core.view.updatePadding
+import kotlinx.android.synthetic.main.fragment_main_category_list.*
 import kotlinx.android.synthetic.main.fragment_main_search_result_list.*
 import kotlinx.android.synthetic.main.fragment_main_search_result_list.contentList
 import kotlinx.android.synthetic.main.fragment_main_search_result_list.contentTitle
@@ -57,12 +58,12 @@ class SearchResultListFragment : BaseFragment(R.layout.fragment_main_search_resu
             (activity as? MainActivity)?.clearSearchResult()
         }
 
-        adapter.items = data.takeIf { it.isNotEmpty() }
-            ?: listOf(ContributeVoicesItemBinder.Item())
+        adapter.items = data + ContributeVoicesItemBinder.Item()
     }
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
-        contentList.updatePadding(bottom = insets.systemWindowInsetBottom)
+        val fabSize = resources.getDimensionPixelSize(R.dimen.fab_size)
+        contentList.updatePadding(bottom = insets.systemWindowInsetBottom + fabSize)
         return insets
     }
 

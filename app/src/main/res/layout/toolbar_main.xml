@@ -23,7 +23,9 @@
     <ViewFlipper
         android:id="@+id/titleSwitcher"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:inAnimation="@anim/slide_fade_in"
+        android:outAnimation="@anim/slide_fade_out">
 
         <ImageView
             android:id="@+id/homeLogo"

@@ -47,8 +47,8 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
 
         contentList.adapter = adapter
 
-        adapter.items = category.voiceList.takeIf { it.isNotEmpty() }
-            ?: listOf(ContributeVoicesItemBinder.Item())
+        adapter.items = category.voiceList +
+                ContributeVoicesItemBinder.Item(R.string.missing_voices_text)
 
         titleButton.setOnClickListener {
             EventsHelper.getInstance(it.context)
@@ -70,7 +70,8 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
     }
 
     override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
-        contentList.updatePadding(bottom = insets.systemWindowInsetBottom)
+        val fabSize = resources.getDimensionPixelSize(R.dimen.fab_size)
+        contentList.updatePadding(bottom = insets.systemWindowInsetBottom + fabSize)
         return insets
     }
 

@@ -110,8 +110,6 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         homeButton.onClick { toggleCategoryMenu() }
         shuffleButton.onClick { playShuffleVoice() }
         TooltipCompat.setTooltipText(shuffleButton, getString(R.string.action_shuffle))
-        titleSwitcher.setInAnimation(this, R.anim.slide_fade_in)
-        titleSwitcher.setOutAnimation(this, R.anim.slide_fade_out)
 
         state = savedInstanceState?.getParcelable(KEY_STATES) ?: State()
 
