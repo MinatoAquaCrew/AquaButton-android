@@ -16,4 +16,7 @@ interface MainUiEventCallback {
     @EventsOnThread(EventsOnThread.MAIN_THREAD)
     fun requestSaveVoice(voice: VoiceItem)
 
+    @EventsOnThread(EventsOnThread.MAIN_THREAD)
+    fun requestReload()
+
 }

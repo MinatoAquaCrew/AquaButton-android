@@ -51,6 +51,7 @@ import moe.feng.aquabutton.ui.sound.MaterialSound
 import moe.feng.aquabutton.util.FileUtils
 import moe.feng.aquabutton.util.VoicePlayer
 import moe.feng.common.eventshelper.EventsHelper
+import java.io.File
 
 class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
@@ -67,6 +68,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     @Parcelize
     private class State(
         var topMenuState: Int = TOP_MENU_STATE_COLLAPSED,
+        var isFailed: Boolean = false,
         var voiceData: List<VoiceCategory> = emptyList(),
         var searchKeyword: String? = null,
         var searchResult: List<VoiceItem>? = null
@@ -77,6 +79,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     private lateinit var state: State
+    private var loadJob: Job? = null
     private var searchJob: Job? = null
     private var saveJob: Job? = null
 
@@ -114,25 +117,13 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
         state = savedInstanceState?.getParcelable(KEY_STATES) ?: State()
 
         if (state.voiceData.isEmpty()) {
-            launch {
-                try {
-                    state.voiceData = AquaAssetsApi.getVoices()
-                    state.voiceData.firstOrNull()?.selected = true
-
-                    topMenuAdapter.items = state.voiceData
-                    topMenuAdapter.notifyDataSetChanged()
-                    setupContentFragment()
-                } catch (e: Exception) {
-                    // TODO Show error
-                }
-            }
+            startLoad()
         } else {
             topMenuAdapter.items = state.voiceData
             setupContentFragment()
         }
 
         updateTopMenuStates()
-        setupContentFragment()
         EventsHelper.getInstance(this).registerListener(this)
     }
 
@@ -212,6 +203,10 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 }
                 return true
             }
+            R.id.action_reload -> {
+                startLoad()
+                return true
+            }
             R.id.action_settings -> {
                 PreferenceActivity.start<MainSettingsFragment>(this)
                 return true
@@ -275,26 +270,58 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                         saveJob?.cancel()
                     }
                 )
-                val voiceFile = AquaAssetsApi.getVoice(voice)
-                whenCreated { saveProgressBar.dismiss() }
-                FileUtils.copyFileToUri(this@MainActivity, voiceFile, uri)
-                val path = uri.toString()
-                MaterialSound.heroSimpleCelebration1()
-                showSnackbar(
-                    text = getString(R.string.tips_voice_saved, path),
-                    duration = Snackbar.LENGTH_LONG,
-                    actionTextRes = R.string.action_share,
-                    onAction = {
-                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                            putExtra(Intent.EXTRA_STREAM, uri)
-                            type = mimeType
+                try {
+                    val voiceFile = AquaAssetsApi.getVoice(voice)
+                    FileUtils.copyFileToUri(this@MainActivity, voiceFile, uri)
+                    whenCreated { saveProgressBar.dismiss() }
+                    val path = uri.toString()
+                    MaterialSound.heroSimpleCelebration1()
+                    showSnackbar(
+                        text = getString(R.string.tips_voice_saved, path),
+                        duration = Snackbar.LENGTH_LONG,
+                        actionTextRes = R.string.action_share,
+                        onAction = {
+                            val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                                putExtra(Intent.EXTRA_STREAM, uri)
+                                type = mimeType
+                            }
+                            startActivity(Intent.createChooser(
+                                sendIntent,
+                                getString(R.string.share_to_title)
+                            ))
                         }
-                        startActivity(Intent.createChooser(
-                            sendIntent,
-                            getString(R.string.share_to_title)
-                        ))
-                    }
-                )
+                    )
+                } catch (e: Exception) {
+                    whenCreated { saveProgressBar.dismiss() }
+                    showErrorTextOnSnackbar(getString(R.string.tips_failed_to_download))
+                }
+            }
+        }
+    }
+
+    override fun requestReload() {
+        startLoad()
+    }
+
+    private fun startLoad() {
+        loadJob?.cancel()
+        loadJob = launch {
+            try {
+                state.isFailed = false
+                state.voiceData = emptyList()
+
+                setupContentFragment()
+
+                state.voiceData = AquaAssetsApi.getVoices()
+                state.voiceData.firstOrNull()?.selected = true
+
+                topMenuAdapter.items = state.voiceData
+                topMenuAdapter.notifyDataSetChanged()
+
+                setupContentFragment()
+            } catch (e: Exception) {
+                state.isFailed = true
+                setupContentFragment()
             }
         }
     }
@@ -378,6 +405,13 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             setCustomAnimations(R.anim.slide_fade_in, R.anim.slide_fade_out)
 
             val fragment = supportFragmentManager.findFragmentById(R.id.contentFrame)
+
+            if (state.isFailed) {
+                if (fragment !is LoadFailedFragment) {
+                    replace(R.id.contentFrame, LoadFailedFragment())
+                }
+                return@commit
+            }
             state.searchKeyword?.let { keyword ->
                 state.searchResult?.let { result ->
                     val showedKeyword = (fragment as? SearchResultListFragment)?.keyword

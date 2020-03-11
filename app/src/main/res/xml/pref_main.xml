@@ -19,4 +19,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/storage_title">
+
+        <Preference
+            android:key="clear_voice_cache"
+            android:title="@string/clear_voice_cache_title"
+            android:summary="@string/clear_voice_cache_summary"
+            android:icon="@drawable/ic_delete_sweep_24_primary_text"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

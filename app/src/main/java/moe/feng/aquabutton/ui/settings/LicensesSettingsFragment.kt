@@ -1,9 +1,9 @@
 package moe.feng.aquabutton.ui.settings
 
 import android.content.Context
+import androidx.preference.Preference
 import moe.feng.aquabutton.R
 import moe.feng.aquabutton.ui.common.BasePreferenceFragment
-import moe.shizuku.preference.Preference
 
 class LicensesSettingsFragment : BasePreferenceFragment(R.xml.pref_licenses) {
 

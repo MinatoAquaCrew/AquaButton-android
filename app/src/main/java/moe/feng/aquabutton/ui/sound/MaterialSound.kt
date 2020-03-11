@@ -20,7 +20,7 @@ object MaterialSound : AquaApp.Component {
 
     private var lastMediaPlayer: MediaPlayer? = null
 
-    private fun play(@RawRes rawRes: Int, forceEnabled: Boolean = false) {
+    private fun play(@RawRes rawRes: Int, forceEnabled: Boolean = false, volume: Float = 0.5f) {
         try {
             lastMediaPlayer?.stop()
             lastMediaPlayer?.release()
@@ -36,6 +36,7 @@ object MaterialSound : AquaApp.Component {
             .build()
         val id = audioManager.generateAudioSessionId()
         val mediaPlayer = MediaPlayer.create(context, rawRes, audioAttributes, id)
+        mediaPlayer.setVolume(volume, volume)
         mediaPlayer.start()
         mediaPlayer.setOnCompletionListener {
             try {
@@ -72,7 +73,7 @@ object MaterialSound : AquaApp.Component {
     }
 
     fun heroSimpleCelebration1() {
-        play(R.raw.hero_simple_celebration_01)
+        play(R.raw.hero_simple_celebration_01, volume = 0.1f)
     }
 
     fun onTouchListenerForNavigationHoverTap(): View.OnTouchListener {

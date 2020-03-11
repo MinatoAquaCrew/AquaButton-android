@@ -1,11 +1,13 @@
 package moe.feng.aquabutton.api
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import moe.feng.aquabutton.AquaApp
 import moe.feng.aquabutton.model.VoiceCategory
 import moe.feng.aquabutton.model.VoiceItem
 import moe.feng.aquabutton.model.internal.VoicesData
+import moe.feng.aquabutton.util.FileUtils
 import moe.feng.aquabutton.util.HttpUtils
 import okhttp3.Request
 import okio.IOException
@@ -28,7 +30,7 @@ object AquaAssetsApi : AquaApp.Component {
         file
     }
 
-    suspend fun getVoices(): List<VoiceCategory> = withContext(Dispatchers.IO) {
+    suspend fun getVoices(): List<VoiceCategory> = withContext(IO) {
         val request = Request.Builder().url(VOICES_URL).build()
         HttpUtils.requestAsJson<VoicesData>(request).voices
     }
@@ -41,8 +43,26 @@ object AquaAssetsApi : AquaApp.Component {
         return voicesCacheFile.resolve(pathToCacheName(path))
     }
 
+    suspend fun getVoiceCacheSize(): Long {
+        return FileUtils.calculateFileSize(voicesCacheFile)
+    }
+
+    suspend fun getVoiceCacheSizeText(): String {
+        return FileUtils.calculateFileSizeToText(context, voicesCacheFile)
+    }
+
+    suspend fun clearVoiceCache() = withContext(IO) {
+        voicesCacheFile.listFiles()?.forEach {
+            try {
+                it.deleteRecursively()
+            } catch (ignored: Exception) {
+
+            }
+        }
+    }
+
     suspend fun downloadVoice(voice: VoiceItem) {
-        withContext(Dispatchers.IO) {
+        withContext(IO) {
             val path = voice.path
 
             val request = Request.Builder()
@@ -79,7 +99,7 @@ object AquaAssetsApi : AquaApp.Component {
         HttpUtils.cancelRequest(REQ_TAG_DOWNLOAD_VOICE)
     }
 
-    suspend fun getVoice(voice: VoiceItem): File = withContext(Dispatchers.IO) {
+    suspend fun getVoice(voice: VoiceItem): File = withContext(IO) {
         val cacheFile = pathToCacheFile(voice.path)
         if (!cacheFile.exists()) {
             downloadVoice(voice)

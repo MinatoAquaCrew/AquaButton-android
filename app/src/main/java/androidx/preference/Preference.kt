@@ -1,6 +1,12 @@
-package moe.feng.aquabutton.util.ext
+package androidx.preference
 
-import moe.shizuku.preference.*
+typealias Preference = moe.shizuku.preference.Preference
+typealias EditTextPreference = moe.shizuku.preference.EditTextPreference
+typealias ListPreference = moe.shizuku.preference.ListPreference
+typealias SeekBarPreference = moe.shizuku.preference.SeekBarPreference
+typealias SwitchPreference = moe.shizuku.preference.SwitchPreference
+typealias TwoStatePreference = moe.shizuku.preference.TwoStatePreference
+typealias SimpleMenuPreference = moe.shizuku.preference.SimpleMenuPreference
 
 inline fun <T : TwoStatePreference> T.onValueChanged(
     crossinline block: T.(value: Boolean) -> Boolean

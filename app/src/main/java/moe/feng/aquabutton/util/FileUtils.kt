@@ -3,14 +3,36 @@ package moe.feng.aquabutton.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.format.Formatter
 import com.afollestad.inlineactivityresult.coroutines.startActivityAwaitResult
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import moe.feng.aquabutton.ui.common.BaseActivity
 import java.io.File
 import java.io.IOException
 
 object FileUtils {
+
+    suspend fun calculateFileSize(file: File): Long = withContext(IO) {
+        if (!file.exists()) {
+            return@withContext 0L
+        } else if (file.isFile) {
+            return@withContext file.length()
+        }
+        val defers = mutableListOf<Deferred<Long>>()
+        file.listFiles()?.forEach { child ->
+            defers += async { calculateFileSize(child) }
+        }
+        return@withContext defers.awaitAll().sum()
+    }
+
+    suspend fun calculateFileSizeToText(context: Context, file: File): String = withContext(IO) {
+        val size = calculateFileSize(file)
+        return@withContext Formatter.formatFileSize(context, size)
+    }
 
     suspend fun requestNewDocumentUri(
         activity: BaseActivity,

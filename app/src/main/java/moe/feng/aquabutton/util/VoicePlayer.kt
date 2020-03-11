@@ -13,6 +13,12 @@ object VoicePlayer : AquaApp.Component {
 
     private var mediaPlayer: MediaPlayer? = null
 
+    private var volume: Float = 0.8f
+        set(value) {
+            field = value.coerceIn(0f, 1f)
+            mediaPlayer?.setVolume(value, value)
+        }
+
     fun init() {
         mediaPlayer = MediaPlayer().also {
             it.setAudioAttributes(AudioAttributes.Builder().apply {
@@ -22,6 +28,7 @@ object VoicePlayer : AquaApp.Component {
                 setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                 setUsage(AudioAttributes.USAGE_MEDIA)
             }.build())
+            it.setVolume(volume, volume)
         }
     }
 

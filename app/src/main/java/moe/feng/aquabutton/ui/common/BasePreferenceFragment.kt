@@ -5,12 +5,12 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import moe.feng.aquabutton.ui.settings.PreferenceActivity
-import moe.shizuku.preference.Preference
-import moe.shizuku.preference.PreferenceFragment
 
 abstract class BasePreferenceFragment(
     private val preferencesRes: Int = 0

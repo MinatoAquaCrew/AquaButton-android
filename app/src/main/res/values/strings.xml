@@ -7,11 +7,13 @@
 
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
+    <string name="action_reload">Reload</string>
     <string name="search_hint">Keyword</string>
     <string name="search_result_title">Result for keyword \"%s\"</string>
     <string name="tips_input_search_keyword">Please input keyword to search.</string>
     <string name="tips_op_requires_load">This operation requires finishing loading data.</string>
     <string name="tips_failed_to_play">Failed to play voice.</string>
+    <string name="tips_failed_to_download">Failed to download voice.</string>
     <string name="choose_category_title">Choose category</string>
     <string name="action_shuffle">I\'m feeling lucky</string>
     <string name="tips_shuffle_result">Lucky voice: %s - %s</string>
@@ -65,6 +67,13 @@
     You can contribute extra voices to this project.
     ]]></string>
     <string name="original_project_url" translatable="false">https://github.com/zyzsdy/aqua-button</string>
+    <string name="load_failed_text">Failed to load data</string>
+    <string name="load_failed_retry_button">Retry</string>
+    <string name="storage_title">Storage</string>
+    <string name="clear_voice_cache_title">Clear voice cache</string>
+    <string name="clear_voice_cache_summary">Total size: %s</string>
+    <string name="placeholder_calculating">Calculating…</string>
+    <string name="tips_clear_cache_format">Successfully cleared %s data.</string>
 
     <string name="aqua_button_licenses_category">Project Licenses</string>
     <string name="aqua_button_licenses_program_title">Source code</string>
