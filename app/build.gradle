@@ -56,7 +56,6 @@ dependencies {
     implementation deps.androidx.materialcomponents
     implementation deps.androidx.recyclerview
     implementation deps.androidx.preference
-    implementation deps.androidx.constraintlayout
 
     implementation deps.inlineactivityresult.kotlin_coroutines
 

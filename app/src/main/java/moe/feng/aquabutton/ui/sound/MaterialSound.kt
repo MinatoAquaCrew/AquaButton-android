@@ -7,22 +7,28 @@ import android.media.MediaPlayer
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.RawRes
+import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import moe.feng.aquabutton.AquaApp
 import moe.feng.aquabutton.R
 
 object MaterialSound : AquaApp.Component {
 
+    private const val KEY_ENABLED = "MaterialSound_enabled"
+
     private val audioManager: AudioManager get() = context.getSystemService()!!
 
     private var lastMediaPlayer: MediaPlayer? = null
 
-    private fun play(@RawRes rawRes: Int) {
+    private fun play(@RawRes rawRes: Int, forceEnabled: Boolean = false) {
         try {
             lastMediaPlayer?.stop()
             lastMediaPlayer?.release()
         } catch (ignored: Exception) {
 
+        }
+        if (!forceEnabled && !isEnabled) {
+            return
         }
         val audioAttributes = AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -40,6 +46,14 @@ object MaterialSound : AquaApp.Component {
         }
         lastMediaPlayer = mediaPlayer
     }
+
+    var isEnabled: Boolean
+        get() = AquaApp.preferences().getBoolean(KEY_ENABLED, true)
+        set(value) {
+            AquaApp.preferences().edit {
+                putBoolean(KEY_ENABLED, value)
+            }
+        }
 
     fun navigationBackwardSelection() {
         play(R.raw.navigation_backward_selection)

@@ -64,6 +64,31 @@ class OSSLicensesFragment : BaseFragment(R.layout.common_list) {
                 author = "Google"
                 githubUrl("google/material-design-icons")
             }
+            apache2 {
+                name = "Inline Activity Result"
+                author = "Aidan Follestad"
+                githubUrl("afollestad/inline-activity-result")
+            }
+            apache2 {
+                name = "RecyclerView FastScroll"
+                author = "Tim Malseed"
+                githubUrl("timusus/RecyclerView-FastScrol")
+            }
+            apache2 {
+                name = "Launcher3"
+                author = "Android Open Source Project"
+                url = "https://android.googlesource.com/platform/packages/apps/Launcher3"
+            }
+            apache2 {
+                name = "ShapeShifter"
+                author = "Alex Lockwood"
+                githubUrl("alexjlockwood/ShapeShifter")
+            }
+            apache2 {
+                name = "Roboto Slab"
+                author = "Christian Robertson"
+                githubUrl("googlefonts/robotoslab")
+            }
             sortByName()
         }
 

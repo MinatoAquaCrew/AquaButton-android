@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceCategory android:title="@string/user_interface_title">
+
+        <androidx.preference.SwitchPreference
+            android:key="ui_sound_enabled"
+            android:title="@string/ui_sound_enabled_title"
+            android:summary="@string/ui_sound_enabled_summary"
+            android:icon="@drawable/ic_volume_up_24_primary_text" />
+
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

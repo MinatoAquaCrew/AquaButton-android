@@ -6,20 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/contentTitle"
+    <LinearLayout
+        android:id="@+id/titleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
         android:clickable="true"
         android:focusable="true"
         android:background="?android:selectableItemBackground"
-        android:soundEffectsEnabled="false"
-        tools:text="Content Title" />
+        android:soundEffectsEnabled="false">
+
+        <TextView
+            android:id="@+id/contentTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:paddingStart="24dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            tools:text="Content Title" />
+
+        <TextView
+            style="@style/Widget.AquaButton.SubscribeButton"
+            android:id="@+id/subscribeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/subscribe_button"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

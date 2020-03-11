@@ -2,9 +2,9 @@ package moe.feng.aquabutton
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.content.FileProvider
-import moe.feng.aquabutton.api.AquaAssetsApi
 import moe.feng.common.eventshelper.EventsHelper
 import java.io.File
 
@@ -22,8 +22,14 @@ class AquaApp : Application() {
 
         const val FILEPROVIDER_AUTHORITY = "moe.feng.aquabutton.fileprovider"
 
+        const val PREFERENCE_NAME_DEFAULT = "aquabutton"
+
         fun getUriForFile(file: File): Uri {
             return FileProvider.getUriForFile(application, FILEPROVIDER_AUTHORITY, file)
+        }
+
+        fun preferences(): SharedPreferences {
+            return application.getSharedPreferences(PREFERENCE_NAME_DEFAULT, Context.MODE_PRIVATE)
         }
 
     }

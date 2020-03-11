@@ -1,8 +1,10 @@
 package moe.feng.aquabutton.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.fragment_main_category_list.*
@@ -48,10 +50,22 @@ class CategoryListFragment : BaseFragment(R.layout.fragment_main_category_list) 
         adapter.items = category.voiceList.takeIf { it.isNotEmpty() }
             ?: listOf(ContributeVoicesItemBinder.Item())
 
-        contentTitle.setOnClickListener {
+        titleButton.setOnClickListener {
             EventsHelper.getInstance(it.context)
                 .of<MainUiEventCallback>()
                 .toggleCategoryMenu()
+        }
+
+        subscribeButton.text = getString(R.string.subscribe_button, getString(R.string.vtuber_name))
+        subscribeButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.data = getString(R.string.vtuber_url).toUri()
+            try {
+                startActivity(intent)
+            } catch (ignored: Exception) {
+
+            }
         }
     }
 

@@ -26,12 +26,6 @@ class LicensesSettingsFragment : BasePreferenceFragment(R.xml.pref_licenses) {
                 PreferenceActivity.start<OSSLicensesFragment>(requireContext())
                 return true
             }
-            KEY_HOLO_TERMS -> {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = getString(R.string.licenses_holo_terms_url).toUri()
-                startActivity(intent)
-                return true
-            }
         }
         return super.onPreferenceTreeClick(preference)
     }
