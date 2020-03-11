@@ -3,7 +3,22 @@ Design material
 
 This is AquaButton project's design material.
 
-Includes vector icons and launcher icons.
+## Interface sounds
+
+Using [Material Design Sound resources by Google](https://material.io/design/sound/sound-resources.html)
+
+## Launcher Icon
+
+Launcher Icon hasn't be designed.
+
+## Logo
+
+Logo is designed for the app bar of main page.
+
+Used fonts:
+
+- [Roboto Slab](https://fonts.google.com/specimen/Roboto+Slab) (English)
+- [Source Han Serif](https://source.typekit.com/source-han-serif) (Chinese & Japanese)
 
 ## Vector Icons
 
