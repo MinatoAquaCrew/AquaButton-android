@@ -7,11 +7,16 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
+import aquacrew.aquabutton.api.AssetsApi
+import aquacrew.aquabutton.api.provider.AquaButtonApiProvider
 import moe.feng.common.eventshelper.EventsHelper
 import java.io.File
 
 class AquaApp : Application() {
 
+    /**
+     * Global app component can implement this interface to get application context easily.
+     */
     interface Component {
 
         val context: Context get() = application
@@ -22,7 +27,7 @@ class AquaApp : Application() {
 
         private lateinit var application: Application
 
-        const val FILEPROVIDER_AUTHORITY = "aquacrew.aquabutton.fileprovider"
+        const val FILEPROVIDER_AUTHORITY = "${BuildConfig.APPLICATION_ID}.fileprovider"
 
         const val PREFERENCE_NAME_DEFAULT = "aquabutton"
 
@@ -50,10 +55,16 @@ class AquaApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        // Assign static application
         application = this
 
+        // Install api provider implementation on application create
+        AssetsApi.installProvider(AquaButtonApiProvider())
+
+        // Init components
         EventsHelper.getInstance(this)
 
+        // Set night mode
         AppCompatDelegate.setDefaultNightMode(darkMode)
     }
 

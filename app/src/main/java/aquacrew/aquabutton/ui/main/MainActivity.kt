@@ -37,7 +37,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 import aquacrew.aquabutton.R
-import aquacrew.aquabutton.api.AquaAssetsApi
+import aquacrew.aquabutton.api.AssetsApi
 import aquacrew.aquabutton.model.VoiceCategory
 import aquacrew.aquabutton.model.VoiceItem
 import aquacrew.aquabutton.model.selectItem
@@ -278,12 +278,12 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                     duration = Snackbar.LENGTH_INDEFINITE,
                     actionTextRes = android.R.string.cancel,
                     onAction = {
-                        AquaAssetsApi.cancelDownloadingVoice()
+                        AssetsApi.cancelDownloadingVoice()
                         saveJob?.cancel()
                     }
                 )
                 try {
-                    val voiceFile = AquaAssetsApi.getVoice(voice)
+                    val voiceFile = AssetsApi.getVoice(voice)
                     FileUtils.copyFileToUri(this@MainActivity, voiceFile, uri)
                     whenCreated { saveProgressBar.dismiss() }
                     val path = uri.toString()
@@ -325,7 +325,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
 
                 setupContentFragment()
 
-                state.voiceData = AquaAssetsApi.getVoices()
+                state.voiceData = AssetsApi.getVoices()
                 state.voiceData.firstOrNull()?.selected = true
 
                 topMenuAdapter.items = state.voiceData
@@ -496,7 +496,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
             duration = Snackbar.LENGTH_LONG
         )
         VoicePlayer.stop()
-        VoicePlayer.play(AquaAssetsApi.getVoice(luckyVoice))
+        VoicePlayer.play(AssetsApi.getVoice(luckyVoice))
     }
 
     fun clearSearchResult() {

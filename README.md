@@ -2,13 +2,14 @@ AquaButton ⚓
 ======
 
 [![GPLv3 license](https://img.shields.io/github/license/MinatoAquaCrew/AquaButton-android.svg)](https://github.com/MinatoAquaCrew/AquaButton-android/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/MinatoAquaCrew/AquaButton-android.svg)](https://gitHub.com/MinatoAquaCrew/AquaButton-android/releases/)
 
 **AquaButton** can play voices of [Minato Aqua（湊あくあ）](./AMT.md) on your Android phone/tablet.
 
 Inspired by [zyzsdy/aqua-button (AquaButton Web)](https://aquaminato.moe/). We created an Android version for more features and cooler user interface on mobile.
 
 Also experimented with a lot of features of Material Design like sounds, animations and components.
+
+If you want to make a different version for your favourite VTuber, read [customize docs](./docs/CUSTOMIZE.md).
 
 ## Install
 

@@ -10,7 +10,7 @@ import androidx.preference.onValueChanged
 import com.google.android.material.snackbar.Snackbar
 import aquacrew.aquabutton.AquaApp
 import aquacrew.aquabutton.R
-import aquacrew.aquabutton.api.AquaAssetsApi
+import aquacrew.aquabutton.api.AssetsApi
 import aquacrew.aquabutton.ui.common.BasePreferenceFragment
 import aquacrew.aquabutton.ui.sound.MaterialSound
 import aquacrew.aquabutton.util.IntentUtils
@@ -51,9 +51,9 @@ class MainSettingsFragment : BasePreferenceFragment(R.xml.pref_main) {
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         if (preference == voiceCache) {
             launchWhenCreated {
-                val totalSize = AquaAssetsApi.getVoiceCacheSize()
-                AquaAssetsApi.clearVoiceCache()
-                val clearedSize = totalSize - AquaAssetsApi.getVoiceCacheSize()
+                val totalSize = AssetsApi.getVoiceCacheSize()
+                AssetsApi.clearVoiceCache()
+                val clearedSize = totalSize - AssetsApi.getVoiceCacheSize()
                 MaterialSound.heroSimpleCelebration1()
                 Snackbar.make(
                     listView,
@@ -72,7 +72,7 @@ class MainSettingsFragment : BasePreferenceFragment(R.xml.pref_main) {
         launchWhenCreated {
             val summaryFormat = getString(R.string.clear_voice_cache_summary)
             voiceCache.summary = summaryFormat.format(getString(R.string.placeholder_calculating))
-            val cacheSize = AquaAssetsApi.getVoiceCacheSizeText()
+            val cacheSize = AssetsApi.getVoiceCacheSizeText()
             voiceCache.summary = summaryFormat.format(cacheSize)
         }
     }

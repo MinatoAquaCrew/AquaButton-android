@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="original_project_name" translatable="false">zyzsdy/aqua-button</string>
+
+    <!-- Link URLs -->
+    <string name="licenses_material_sound_url" translatable="false">https://material.io/design/sound/sound-resources.html</string>
+    <string name="original_project_url" translatable="false">https://github.com/zyzsdy/aqua-button</string>
+    <string name="aqua_button_licenses_program_url" translatable="false">https://github.com/MinatoAquaCrew/AquaButton-android</string>
+
+</resources>

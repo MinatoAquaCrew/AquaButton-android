@@ -4,7 +4,7 @@ import androidx.view.contextMenuBy
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import aquacrew.aquabutton.R
-import aquacrew.aquabutton.api.AquaAssetsApi
+import aquacrew.aquabutton.api.AssetsApi
 import aquacrew.aquabutton.databinding.VoiceSingleItemBinding
 import aquacrew.aquabutton.model.VoiceItem
 import aquacrew.aquabutton.ui.common.list.DataBindingViewHolder
@@ -42,7 +42,7 @@ class VoiceItemBinder : ItemBasedSimpleViewBinder<VoiceItem, ViewHolder>() {
             playJob = launch {
                 try {
                     VoicePlayer.stop()
-                    VoicePlayer.play(AquaAssetsApi.getVoice(data))
+                    VoicePlayer.play(AssetsApi.getVoice(data))
                 } catch (e: Exception) {
                     e.printStackTrace()
                     EventsHelper.getInstance(context)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VTuber's public info and copyright info can be placed here. -->
+<resources>
+
+    <string name="vtuber_name" translatable="false">湊あくあ</string>
+    <string name="vtuber_url" translatable="false">https://www.hololive.tv/portfolio/items/336383</string>
+
+    <string name="licenses_voice_source">Voices source of Minato Aqua</string>
+    <string name="licenses_voice_source_summary">© Cover Corp. / Hololive production</string>
+    <string name="licenses_holo_terms_url" translatable="false">https://www.hololive.tv/terms</string>
+
+</resources>
