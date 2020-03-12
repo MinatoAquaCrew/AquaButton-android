@@ -76,4 +76,4 @@ According to the [Hololive secondary creation licence](https://www.hololive.tv/t
 
 ### Design (Icons, logos, sounds and etc.)
 
-Read [README of /design](./design/README.md)
+Read [README in /design](./design/README.md)

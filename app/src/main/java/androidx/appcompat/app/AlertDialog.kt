@@ -20,11 +20,11 @@ fun Context.showAlertDialog(block: AlertDialog.Builder.() -> Unit): AlertDialog 
 }
 
 fun Fragment.buildAlertDialog(block: AlertDialog.Builder.() -> Unit): AlertDialog {
-    return AlertDialog.Builder(context!!).apply(block).create()
+    return AlertDialog.Builder(requireContext()).apply(block).create()
 }
 
 fun Fragment.showAlertDialog(block: AlertDialog.Builder.() -> Unit): AlertDialog {
-    return AlertDialog.Builder(context!!).apply(block).show()
+    return AlertDialog.Builder(requireContext()).apply(block).show()
 }
 
 var AlertDialog.Builder.title: String

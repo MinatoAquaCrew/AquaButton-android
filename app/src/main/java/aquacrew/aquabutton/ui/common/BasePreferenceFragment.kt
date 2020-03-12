@@ -33,7 +33,9 @@ abstract class BasePreferenceFragment(
 
     fun setPreferenceClickListener(key: String,
                                    onClick: suspend CoroutineScope.() -> Unit) {
-        findPreference(key)!!.setOnPreferenceClickListener {
+        val preference = findPreference(key)
+            ?: throw IllegalArgumentException("Cannot find preference by key=$key")
+        preference.setOnPreferenceClickListener {
             lifecycleScope.launch { onClick() }
             true
         }
@@ -41,8 +43,11 @@ abstract class BasePreferenceFragment(
 
     inline fun <reified T : Any> setPreferenceChangeListener(
         key: String,
-        crossinline onChange: (T) -> Boolean) {
-        findPreference(key)!!.setOnPreferenceChangeListener { _, newValue ->
+        crossinline onChange: (T) -> Boolean
+    ) {
+        val preference = findPreference(key)
+            ?: throw IllegalArgumentException("Cannot find preference by key=$key")
+        preference.setOnPreferenceChangeListener { _, newValue ->
             onChange(newValue as T)
         }
     }

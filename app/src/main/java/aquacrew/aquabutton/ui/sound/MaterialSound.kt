@@ -16,7 +16,8 @@ object MaterialSound : AquaApp.Component {
 
     private const val KEY_ENABLED = "MaterialSound_enabled"
 
-    private val audioManager: AudioManager get() = context.getSystemService()!!
+    private val audioManager: AudioManager get() = context.getSystemService()
+        ?: throw IllegalStateException("Cannot get audio manager")
 
     private var lastMediaPlayer: MediaPlayer? = null
 
