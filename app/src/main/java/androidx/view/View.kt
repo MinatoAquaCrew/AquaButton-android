@@ -14,6 +14,12 @@ fun View.hideKeyboard(flags: Int = 0) {
     manager?.hideSoftInputFromWindow(windowToken, flags)
 }
 
+fun View.showKeyboard(flags: Int = InputMethodManager.SHOW_FORCED) {
+    val manager = context.getSystemService<InputMethodManager>()
+    this.requestFocus()
+    manager?.toggleSoftInput(flags, InputMethodManager.HIDE_IMPLICIT_ONLY)
+}
+
 fun View.contextMenuBy(
     @MenuRes menuRes: Int,
     headerTitle: (context: Context) -> CharSequence? = { null },

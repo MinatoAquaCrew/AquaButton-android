@@ -28,6 +28,7 @@ import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import androidx.view.hideKeyboard
+import androidx.view.showKeyboard
 import androidx.view.updateDisplayedId
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.parcel.Parcelize
@@ -50,6 +51,7 @@ import aquacrew.aquabutton.ui.settings.PreferenceActivity
 import aquacrew.aquabutton.ui.sound.MaterialSound
 import aquacrew.aquabutton.util.FileUtils
 import aquacrew.aquabutton.util.VoicePlayer
+import kotlinx.coroutines.delay
 import moe.feng.common.eventshelper.EventsHelper
 
 class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
@@ -357,6 +359,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
     }
 
     private fun updateTopMenuStates(newState: Int? = null, animate: Boolean = false) {
+        val animateDuration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
         val lastState = state.topMenuState
         if (newState != null) {
             state.topMenuState = newState
@@ -392,12 +395,16 @@ class MainActivity : BaseActivity(R.layout.activity_main), MainUiEventCallback {
                 topMenuList.isGone = true
                 searchContainer.isVisible = true
                 searchEdit.setText("")
+                launch {
+                    delay(animateDuration)
+                    searchEdit.showKeyboard()
+                }
             }
         }
         if (animate) {
             TransitionManager.beginDelayedTransition(rootLinearLayout, AutoTransition().apply {
                 ordering = TransitionSet.ORDERING_TOGETHER
-                duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+                duration = animateDuration
             })
             (homeButton.drawable as? Animatable)?.start()
         }
