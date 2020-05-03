@@ -6,6 +6,16 @@ fun <T : ISelectableModel> List<T>.selectItem(item: T?) {
     }
 }
 
+fun textTranslationOf(vararg pairs: Pair<String, String?>): TextTranslation {
+    val textTranslation = TextTranslation()
+    pairs.forEach { (key, value) ->
+        if (value != null) {
+            textTranslation[key] = value
+        }
+    }
+    return textTranslation
+}
+
 class LicenseItemBuilder {
 
     var name: String = ""

@@ -23,7 +23,7 @@ In the future, we will publish to Google Play and Coolapk.
 
 Build environment:
 
-- Android Studio 4.1+
+- Android Studio 4.1 Canary 6+
 - Android SDK (Platform Q SDK, Build tools and etc.)
 - Java 8+
 
@@ -43,6 +43,8 @@ Build step:
 We used voice assets from repository of [zyzsdy/aqua-button (AquaButton Web)](https://github.com/zyzsdy/aqua-button).
 
 You can read description in this repo about how to add or modify voice.
+
+By the way, we also implemented other VTubers voice resources, you can read [this docs](./docs/VOICE_REPOS.md) to learn more.
 
 ### Translations
 

@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="app" target="1.8" />
+      <module name="AquaButton.app" target="1.8" />
+      <module name="AquaButton.buildSrc" target="1.8" />
       <module name="AquaButton_buildSrc" target="1.8" />
     </bytecodeTargetLevel>
   </component>
